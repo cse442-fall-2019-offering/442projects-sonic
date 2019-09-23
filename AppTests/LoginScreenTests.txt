@@ -12,6 +12,10 @@ Expected Results:  Logo loads on top of screen;
 	           "Create A New Account" hyperlink text loads under "Log In" Button 
 		    "Create A New Account" hyperlink text is pressable
 
+Actual Results:
+
+Status: 
+
 
 2) "Log In" Button Links to Homepage 
 
@@ -19,7 +23,11 @@ Action: Press "Log In" button
 
 Expected Results: App loads Homepage regardless of username and password field contents. 
 User is transported to Homepage. 
- 
+
+
+Actual Results:
+
+Status:  
 
 
 3) Register Button Links to Register Page
@@ -28,4 +36,10 @@ Action: Press "Create A New Account" hyperlink tex
 
 Expected Results: App loads Homepage regardless of username and password field contents. 
 User is transported to Homepage. 
+
+
+Actual Results:
+
+Status: 
+
 

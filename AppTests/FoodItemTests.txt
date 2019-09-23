@@ -1,4 +1,7 @@
-Food Item Tests:
+Food Item:
+
+
+Steps: 
 
 1)Food Item Page UI
 Action: Load Food Item Screen
@@ -9,17 +12,23 @@ Expected Results:  Hard Coded Food Name appears at top of screen infront of high
 		   "Calories", "Fat", "Carbs", "Cholesterol", "Sodium", "Fiber", "Sugar", "Protein';
 		   Textbox with "Servings" text loads under nutrition info;
                    Button labeled "Submit" Loads under Textbox;
+Actual Result:
 
+Status: 
 
 2) Update textbox
 Action: Click "Servings" Textbox 
 
 Expected Results: Number keyboard appears on screen
+Actual Result:
 
 Action: type number, press enter
 
 Expected Results: Keyboard closes;
 		  "Servings" text is replaced by inputed number
+Actual Result: 
+
+Status:
 
 3) Submit Button
 
@@ -28,6 +37,9 @@ Action: Press Submit Button
 Expected Results: App loads Homepage regardless of serving field contents. 
 User is transported to Homepage. 
 
+Actual Result: 
+
+Status:
 
 		   
 		   
