@@ -1,0 +1,9 @@
+Home Screen Tests:
+
+1)Page UI
+Action: Load Home Screen
+
+Expected Results:  Account Icon, hardcoded Day text, graph Icon load vertically on top of screen
+		   			   
+	           Hard Coded: Calorie Used "/" Max Calories Number "Calories" Text appears under top bar
+	           "Protein", "Fat", and "Carbs" Labels load, along with hard coded values, and 'grams' unit.

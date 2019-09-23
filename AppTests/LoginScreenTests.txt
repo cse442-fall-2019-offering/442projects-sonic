@@ -1,0 +1,31 @@
+Login Screen UI Tests:
+
+1)Page UI
+Action: Load Login Screen
+
+Expected Results:  Logo loads on top of screen;
+	           Lightblue background color loads;
+		   Username and Password textfields load;
+		   Username and Password textfields accept text; 
+		   "Log In" Button loads Username and Password textfields;
+		   "Log In" Button is pressable
+	           "Create A New Account" hyperlink text loads under "Log In" Button 
+		    "Create A New Account" hyperlink text is pressable
+
+
+2) "Log In" Button Links to Homepage 
+
+Action: Press "Log In" button
+
+Expected Results: App loads Homepage regardless of username and password field contents. 
+User is transported to Homepage. 
+ 
+
+
+3) Register Button Links to Register Page
+
+Action: Press "Create A New Account" hyperlink tex
+
+Expected Results: App loads Homepage regardless of username and password field contents. 
+User is transported to Homepage. 
+

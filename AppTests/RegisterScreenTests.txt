@@ -1,0 +1,52 @@
+Register Screen UI Tests:
+
+1)Page UI
+Action: Load Register Screen
+
+Expected Results:  Sign Up Text appears at top of Screen
+		   Purple background loads
+		   Blue text fields load "Sign Up" Text for "Email Address, Full Name, 
+						Password, Re-enter password, Date of Birth, Location, Phone Number,
+						Location, Phone Number, Height, Current Weight, Goal Weight"
+		   Text Fields accept text;
+		   "Sex" Label loads
+	           Drop down Menu for "Sex" loads;
+	           "Activity Level" label loads
+		   Drop down Menu for "Activity Level" loads;
+		   Blue "Let's Get Started!" button loads at bottom of page
+
+3) Page Scrolling
+
+Action: Slide finger up and down on the right side of the screen
+
+Expected Results: Page scrolls to reveal additional textboxes and dropdown menus
+
+4) "Sex" Dropdown menu 
+
+Action: Click "Sex" Drop Down menu
+
+Expected Results: Drop-Down menu options "Male" and "Female" are visible and clickable
+
+Action: Click Female
+Expected Results: Dropdown menu closes, "Female" option is selected and visible under "Sex" label
+
+5) "Activity Level" Dropdown menu 
+
+Action: Click "Activity Level"Drop Down menu
+
+Expected Results: Drop-Down menu options "Sedentary (little to no exervise)", "Lightly Active...", "Moderately Active...",
+		  "Very Active...", "Extremely Active..."  are visible and clickable
+
+Action: Click "Extremely Active..."
+Expected Results: Dropdown menu closes, "Extremely Active" option is selected and visible under "Activity Level" label
+
+6) "Let's Get Started" Button Links to Homepage 
+
+Actions: Scroll to bottom of Page
+	Press "Lets Get Started" button
+
+Expected Results: App loads Homepage regardless of text field contents. 
+User is transported to Homepage. 
+ 
+
+
