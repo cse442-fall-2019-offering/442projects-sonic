@@ -1,3 +1,6 @@
+// @author: Syed Rehman
+// Log In Screen
+
 import React, { Component } from 'react';
 import {
   Text,
@@ -71,7 +74,7 @@ export default class SomeApp extends Component {
         <View style={{ flexDirection: 'row', }}>
 
           <Text> Create A </Text>
-          <Text style={{ color: "#ffff66", fontWeight: 'bold' }}> New Account </Text>
+          <Text style={{ color: "#ffff66", fontWeight: 'bold' }} onPress={() => Alert.alert('Create Account pressed !')}> New Account </Text>
         </View>
 
       </View>
