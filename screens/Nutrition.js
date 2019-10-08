@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, {Component} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -11,142 +11,132 @@ import {
   ImageBackground,
   Image,
   ActivityIndicator,
-  FlatList
+  FlatList,
+  Input,
+  TouchableHighlight
 } from 'react-native';
+import { ListItem, SearchBar } from 'react-native-elements';
 
-import {Header} from 'react-native-elements'
 
+
+
+var API = 'https://trackapi.nutritionix.com/v2/search/instant?query=';
+var DEFAULT_QUERY = 'ap';
 
 class Nutrition extends React.Component  {
-  constructor(props){
+ constructor(props) {
     super(props);
-    this.state ={ isLoading: true}
+
+    this.state = {
+      loading: false,
+      data: [],
+      error: null,
+    };
+
+    this.arrayholder = [];
   }
 
-  componentDidMount(){
-    return fetch('https://trackapi.nutritionix.com/v2/search/instant/?query=grilled cheese')
-      .then((response) => response.json())
-      .then((responseJson) => {
+  componentDidMount() {
+    this.makeRemoteRequest();
+  }
 
+  makeRemoteRequest = () => {
+
+    this.setState({ loading: true });
+
+    return fetch(API + DEFAULT_QUERY,
+
+        {
+          headers:{
+            'x-app-id' : '979e48c8',
+            'x-app-key': 'e7cc162c38e1ee157bcad82667783fef'
+          }
+        })
+      .then(response => response.json())
+      .then(responseJson => {
         this.setState({
-          isLoading: false,
-          dataSource: responseJson.branded,
-        }, function(){
+          data: responseJson.branded,
+          loading: false,
+        },function(){
 
         });
-
+        this.arrayholder = responseJson.branded;
       })
-      .catch((error) =>{
-        console.error(error);
+      .catch(error => {
+        this.setState({ error, loading: false });
       });
-  }
+  };
+
+  renderSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: '86%',
+          backgroundColor: '#CED0CE',
+          marginLeft: '14%',
+        }}
+      />
+    );
+  };
+
+  searchFilterFunction = text => {
+    this.setState({
+      value: text,
+    });
+
+
+
+    const newData = this.arrayholder.filter(item => {
+      const itemData = `${item.food_name.toUpperCase()}`;
+      const textData = text.toUpperCase();
+
+      return itemData.indexOf(textData) > -1;
+    });
+    this.setState({
+      data: newData,
+    });
+  };
+
+  renderHeader = () => {
+    return (
+      <SearchBar
+        placeholder="Type Here..."
+        lightTheme
+        round
+        onChangeText={text => this.searchFilterFunction(text)}
+        autoCorrect={false}
+        value={this.state.value}
+      />
+    );
+  };
 
   render() {
-    const {navigate} = this.props.navigation;
-    if(this.state.isLoading){
-      return(
-        <View style={{flex: 1, padding: 20}}>
-          <ActivityIndicator/>
+    if (this.state.loading) {
+      return (
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <ActivityIndicator />
         </View>
-      )
+      );
     }
-  return (
-    <View style={{flex: 1, paddingTop:20}}>
-    <FlatList
-      data={this.state.dataSource}
-      renderItem={({item}) => <Text>{item.food_name}, {item.nf_calories}</Text>}
-    />
-  </View>
-  );
-}
-}
-
-const styles = StyleSheet.create({
-  container: {
-   flex:1,
-   justifyContent: 'flex-start',
-    backgroundColor: '#ffffff'
-  },
-  container1:{
-    alignItems: 'center',
-  },
-  subContainer:{
-    flexDirection: 'row',
-  },
-  subContainer1:{
-    flexDirection: 'row',
-  },
-  setFontSizeOne:{
-    padding: 30,
-    fontSize: 40,
-    fontFamily: 'Rubik-Light',
-    textAlign: 'center',
-    color: '#34eb8f' 
-    
-  },
-  subTitle:{
-    padding: 15,
-    fontSize: 20,
-    fontFamily: 'Rubik-Bold',
-    color: '#B7E5F6'
-  },
-  subTitle1:{
-    padding: 15,
-    fontSize: 20,
-    fontFamily: 'Rubik-Light',
-    textAlign: 'center',
-    color: '#ffe373'
-  },
-  subTitle2:{
-    padding: 15,
-    fontSize: 20,
-    fontFamily: 'Rubik-Bold',
-    textAlign: 'center',
-    color: '#FC2D2D'
-  },
-  item:{
-    padding: 15,
-    fontSize: 20,
-    fontFamily: 'Rubik-Light',
-    color: '#B7E5F6',
-    textAlign: 'center',
-  },
-  item1:{
-    padding: 15,
-    fontSize: 20,
-    fontFamily: 'Rubik-Light',
-    textAlign: 'center',
-    color: '#ffe373'
-
-  },
-  
-  item2:{
-    padding: 15,
-    fontSize: 20,
-    fontFamily: 'Rubik-Light',
-    textAlign: 'center',
-    color: '#FC2D2D'
-
-  },
-  mealTitle:{
-    padding: 20,
-    fontSize:20,
-    fontFamily: 'Rubik-Light',
-    textAlign: 'center',
-    color: '#696969'
-  },
-  meal :{
-    padding: 15,
-    fontSize:20,
-    fontFamily: 'Rubik-Light',
-    textAlign: 'left',
-    color: '#696969'
-  },
-  lol :{
-    fontFamily: 'Rubik-Light',
-    color: '#696969'
+    return (
+      <View style={{ flex: 1 }}>
+        <FlatList
+          data={this.state.data}
+          renderItem={({ item }) => (
+            <ListItem
+             // leftAvatar={{ source: { uri:  } }}
+              title={`${item.food_name} `}
+             // subtitle={}
+            />
+          )}
+          keyExtractor={({id}, index) => id}
+          ItemSeparatorComponent={this.renderSeparator}
+          ListHeaderComponent={this.renderHeader}
+        />
+      </View>
+    );
   }
+}export default Nutrition;
 
-  
-});
-export default Nutrition;
+
