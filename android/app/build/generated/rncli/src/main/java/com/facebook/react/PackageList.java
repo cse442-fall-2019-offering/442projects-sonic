@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import com.googlefont.BuildConfig;
 import com.googlefont.R;
 
+// react-native-gesture-handler
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+// react-native-linear-gradient
+import com.BV.LinearGradient.LinearGradientPackage;
 // react-native-vector-icons
 import com.oblador.vectoricons.VectorIconsPackage;
 
@@ -48,6 +52,8 @@ public class PackageList {
   public ArrayList<ReactPackage> getPackages() {
     return new ArrayList<>(Arrays.<ReactPackage>asList(
       new MainReactPackage(),
+      new RNGestureHandlerPackage(),
+      new LinearGradientPackage(),
       new VectorIconsPackage()
     ));
   }

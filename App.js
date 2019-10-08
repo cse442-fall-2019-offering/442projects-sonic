@@ -1,20 +1,19 @@
-import React, { Component } from 'react';
-import {
-  Text,
-  View,
-  Alert,
-  TouchableHighlight,
-  //Button,
-  Image
-} from 'react-native';
+import React from 'react';
+import { View, Text,Button,Image,TouchableHighlight} from 'react-native';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import ProfileScreen from './screens/Profile'
+import Nutrition from './screens/Nutrition'
 import {
   Input,
 } from 'react-native-elements';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { bold } from 'ansi-colors';
 
-export default class SomeApp extends Component {
+class HomeScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Welcome',
+  };
   render() {
+    const {navigate} = this.props.navigation;
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 15, backgroundColor: "#00b3c0" }} >
         <View style={{ paddingBottom: 60, flexDirection: 'row' }}>
@@ -71,11 +70,21 @@ export default class SomeApp extends Component {
         <View style={{ flexDirection: 'row', }}>
 
           <Text> Create A </Text>
-                    <Text style={{ color: "#ffff66", fontWeight: 'bold' }}
-                    onPress={() => Alert.alert('Create Account pressed !')}> New Account </Text>
+          <Text style={{ color: "#ffff66", fontWeight: 'bold' }} onPress={() => navigate('Profile',{name:'Jane'})}> New Account </Text>
         </View>
 
       </View>
     );
   }
 }
+
+const MainNavigator = createStackNavigator({
+  Home: {screen: HomeScreen},
+  Profile: {screen: ProfileScreen},
+  Nutrition :{screen: Nutrition},
+
+});
+
+const App = createAppContainer(MainNavigator);
+
+export default App;

@@ -5,9 +5,11 @@ INJECTED from /Users/syedrehman/Documents/git/cse442/442projects-sonic/android/a
 INJECTED from /Users/syedrehman/Documents/git/cse442/442projects-sonic/android/app/src/main/AndroidManifest.xml:1:1-26:12
 INJECTED from /Users/syedrehman/Documents/git/cse442/442projects-sonic/android/app/src/main/AndroidManifest.xml:1:1-26:12
 MERGED from /Users/syedrehman/Documents/git/cse442/442projects-sonic/android/app/src/main/AndroidManifest.xml:1:1-26:12
+MERGED from [:react-native-gesture-handler] /Users/syedrehman/Documents/git/cse442/442projects-sonic/node_modules/react-native-gesture-handler/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-vector-icons] /Users/syedrehman/Documents/git/cse442/442projects-sonic/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [com.facebook.react:react-native:0.60.5] /Users/syedrehman/.gradle/caches/transforms-2/files-2.1/82539aa40a5eed9d3d90487d3beaa104/AndroidManifest.xml:2:1-13:12
 MERGED from [org.webkit:android-jsc:r245459] /Users/syedrehman/.gradle/caches/transforms-2/files-2.1/2fab86e702c1a6c0fca76fbfdda6c3bb/AndroidManifest.xml:2:1-11:12
+MERGED from [:react-native-linear-gradient] /Users/syedrehman/Documents/git/cse442/442projects-sonic/node_modules/react-native-linear-gradient/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat:1.0.2] /Users/syedrehman/.gradle/caches/transforms-2/files-2.1/053943358d9b688a0e148c8e334b03e5/AndroidManifest.xml:17:1-22:12
 MERGED from [com.facebook.fresco:fresco:2.0.0] /Users/syedrehman/.gradle/caches/transforms-2/files-2.1/cc5ebc6ff9a17b1b7a12b9843436072d/AndroidManifest.xml:2:1-9:12
 MERGED from [com.facebook.fresco:imagepipeline-okhttp3:2.0.0] /Users/syedrehman/.gradle/caches/transforms-2/files-2.1/26f86980dbe6567963f3519c67d23fe8/AndroidManifest.xml:2:1-9:12
@@ -133,12 +135,16 @@ uses-sdk
 INJECTED from /Users/syedrehman/Documents/git/cse442/442projects-sonic/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/syedrehman/Documents/git/cse442/442projects-sonic/android/app/src/main/AndroidManifest.xml
 INJECTED from /Users/syedrehman/Documents/git/cse442/442projects-sonic/android/app/src/main/AndroidManifest.xml
+MERGED from [:react-native-gesture-handler] /Users/syedrehman/Documents/git/cse442/442projects-sonic/node_modules/react-native-gesture-handler/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-gesture-handler] /Users/syedrehman/Documents/git/cse442/442projects-sonic/node_modules/react-native-gesture-handler/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-vector-icons] /Users/syedrehman/Documents/git/cse442/442projects-sonic/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-vector-icons] /Users/syedrehman/Documents/git/cse442/442projects-sonic/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [com.facebook.react:react-native:0.60.5] /Users/syedrehman/.gradle/caches/transforms-2/files-2.1/82539aa40a5eed9d3d90487d3beaa104/AndroidManifest.xml:7:5-9:41
 MERGED from [com.facebook.react:react-native:0.60.5] /Users/syedrehman/.gradle/caches/transforms-2/files-2.1/82539aa40a5eed9d3d90487d3beaa104/AndroidManifest.xml:7:5-9:41
 MERGED from [org.webkit:android-jsc:r245459] /Users/syedrehman/.gradle/caches/transforms-2/files-2.1/2fab86e702c1a6c0fca76fbfdda6c3bb/AndroidManifest.xml:7:5-9:41
 MERGED from [org.webkit:android-jsc:r245459] /Users/syedrehman/.gradle/caches/transforms-2/files-2.1/2fab86e702c1a6c0fca76fbfdda6c3bb/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-linear-gradient] /Users/syedrehman/Documents/git/cse442/442projects-sonic/node_modules/react-native-linear-gradient/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-linear-gradient] /Users/syedrehman/Documents/git/cse442/442projects-sonic/node_modules/react-native-linear-gradient/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [androidx.appcompat:appcompat:1.0.2] /Users/syedrehman/.gradle/caches/transforms-2/files-2.1/053943358d9b688a0e148c8e334b03e5/AndroidManifest.xml:20:5-44
 MERGED from [androidx.appcompat:appcompat:1.0.2] /Users/syedrehman/.gradle/caches/transforms-2/files-2.1/053943358d9b688a0e148c8e334b03e5/AndroidManifest.xml:20:5-44
 MERGED from [com.facebook.fresco:fresco:2.0.0] /Users/syedrehman/.gradle/caches/transforms-2/files-2.1/cc5ebc6ff9a17b1b7a12b9843436072d/AndroidManifest.xml:5:5-7:41
