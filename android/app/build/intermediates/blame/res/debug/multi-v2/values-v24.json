@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/syedrehman/Documents/git/cse442/442projects-sonic/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v24/values-v24.xml",
+            "outputFile": "D:\\Android\\AndroidStudioProjects\\NutritionGo\\442projects-sonic\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v24\\values-v24.xml",
             "map": [
                 {
-                    "source": "/Users/syedrehman/.gradle/caches/transforms-2/files-2.1/053943358d9b688a0e148c8e334b03e5/res/values-v24/values-v24.xml",
+                    "source": "C:\\Users\\Shawn\\.gradle\\caches\\transforms-2\\files-2.1\\bc4bf0c76bd60b3e9d094f82b940643b\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

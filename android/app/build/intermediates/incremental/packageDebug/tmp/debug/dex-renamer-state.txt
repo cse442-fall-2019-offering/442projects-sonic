@@ -1,4 +1,4 @@
-#Tue Oct 08 17:04:34 EDT 2019
-base.0=/Users/syedrehman/Documents/git/cse442/442projects-sonic/android/app/build/intermediates/transforms/dexMerger/debug/0
-renamed.0=classes.dex
+#Tue Oct 08 17:27:00 EDT 2019
+base.0=D\:\\Android\\AndroidStudioProjects\\NutritionGo\\442projects-sonic\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 path.0=classes.dex
+renamed.0=classes.dex
