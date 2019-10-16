@@ -18,20 +18,18 @@ import { SearchBar, ListItem, Icon } from 'react-native-elements';
 
 
 
-var API = 'https://trackapi.nutritionix.com/v2/search/instant?query=';
-var DEFAULT_QUERY = '';
 
-class NutritionInfo extends React.Component  {
+class NutritionFacts extends React.Component  {
 
   constructor(props){
     super(props);
     this.state = {
         isLoading: true,
-        itemInfo: this.props.navigation.state.params.itemInfo,
+        itemInfo: this.props.navigation.state.params.itemInformation,
     };
   }
 
-      const url = 'https://trackapi.nutritionix.com/v2/search/item?query=';
+      const url = 'https://trackapi.nutritionix.com/v2/search/item?nix_item_id=';
 
     fetch(url + {this.state.itemInfo},
       {
@@ -143,23 +141,29 @@ class NutritionInfo extends React.Component  {
 
 
   const styles = StyleSheet.create({
+
     container: {
       flex: 1,
       paddingTop: 24,
       backgroundColor: 'white',
     },
+
     content: {
       paddingBottom: 300,
     },
+
     card1: {
       paddingVertical: 16,
     },
+
     card2: {
       padding: 16,
     },
+
     input: {
       marginTop: 4,
     },
+
     title: {
       paddingBottom: 16,
       textAlign: 'center',
@@ -168,5 +172,8 @@ class NutritionInfo extends React.Component  {
       fontWeight: 'bold',
       opacity: 0.8,
     },
+
   });
-  export default NutritionInfo;
+
+
+  export default NutritionFacts;

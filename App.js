@@ -12,7 +12,7 @@ import { Input } from 'react-native-elements';
 import SignUp from './screens/SignUp'
 import Nutrition from './screens/Nutrition'
 import Login from './screens/Login'
-import NutritionInfo from './screens/NutritionInfo'
+import NutritionInfo from './screens/NutritionFacts'
 
 
 
@@ -34,7 +34,7 @@ class App extends React.Component {
         LoginScreen: {screen: Login},
         SignUpScreen: {screen: SignUp},
         SearchScreen: {screen: Nutrition},
-        NutritionInfoScreen: {screen: NutritionInfo}
+        NutritionFactsScreen: {screen: NutritionFacts}
     },
 
     {

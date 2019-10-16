@@ -18,9 +18,6 @@ import { SearchBar, ListItem, Icon } from 'react-native-elements';
 
 
 
-var API = 'https://trackapi.nutritionix.com/v2/search/instant?query=';
-var DEFAULT_QUERY = '';
-
 class Nutrition extends React.Component  {
   constructor(props){
     super(props);
@@ -66,8 +63,6 @@ class Nutrition extends React.Component  {
                  placeholder="Type your food..."
                  underlineColorAndroid = "#000000"
                  onChangeText={(text) => { this.fetchData(text); }}
-               //  inlineImageLeft='fastfood-24px.svg'
-
              />
 
              <FlatList
@@ -79,7 +74,7 @@ class Nutrition extends React.Component  {
                      leftAvatar={{ source: { uri:  `${item.image} `} }}
                      title={`${item.food_name} `}
                      subtitle={'Calories: '+`${item.nf_calories}`}
-                     onPress={() => navigate('NutritionInfoScreen',{itemInfo:${item.nix_item_id}})}
+                     onPress={() => navigate('NutritionFactsScreen',{itemInformation:${item.nix_item_id}})}
 
                   />
 
