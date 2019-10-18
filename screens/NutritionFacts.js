@@ -29,9 +29,9 @@ class NutritionFacts extends React.Component  {
     };
   }
 
-      const url = 'https://trackapi.nutritionix.com/v2/search/item?nix_item_id=';
 
-    fetch(url + {this.state.itemInfo},
+  ComponentDidMount(){
+    return fetch('https://trackapi.nutritionix.com/v2/search/item?nix_item_id=513fc9e73fe3ffd40300109f',
       {
         headers:{
           'x-app-id' : '979e48c8',
@@ -48,8 +48,68 @@ class NutritionFacts extends React.Component  {
         console.log(error);
       });
 
+  }
+
+        const list = [
+                    {
+                      title: 'Brand Name',
+                      subtitle: ' '
+                    },
+
+                    {
+                      title: 'Calories',
+                      subtitle: {this.state.dataSource.nf_calories}
+                    },
+                    {
+                      title: 'Total Fat',
+                      subtitle: {this.state.dataSource.nf_total_fat} +'g'
+                    },
+                    {
+                      title: 'Saturated Fat',
+                      subtitle: {this.state.dataSource.nf_saturated_fat} + 'g'
+                    },
+                    {
+                      title: 'Cholesterol',
+                      subtitle: {this.state.dataSource.nf_cholesterol} + 'mg'
+                    },
+                    {
+                      title: 'Sodium',
+                      subtitle: {this.state.dataSource.nf_sodium} + 'mg'
+                    },
+                    {
+                      title: 'Total Carbohydrate',
+                      subtitle: {this.state.dataSource.nf_total_carbohydrate} +'g'
+                    },
+                    {
+                      title: 'Dietary Fiber',
+                      subtitle: {this.state.dataSource.nf_dietary_fiber} + 'g'
+                    },
+                    {
+                      title: 'Sugar',
+                      subtitle: {this.state.dataSource.nf_sugars} + 'g'
+                    },
+                    {
+                      title: 'Protein',
+                      subtitle: {this.state.dataSource.nf_protein} + 'g'
+                    },
+                    {
+                      title: 'Potassium',
+                      subtitle: {this.state.dataSource.nf_potassium} + 'mg'
+                    },
+        ]
 
 
+
+    keyExtractor = (item, index) => index.toString()
+
+    renderItem = ({ item }) => (
+        <ListItem
+            title={item.title}
+            subtitle={item.subtitle}
+            bottomDivider
+            chevron
+        />
+    )
 
 
    render(){
@@ -57,83 +117,13 @@ class NutritionFacts extends React.Component  {
       return(
 
 
-        <View style={styles.container}>
-
-
              <FlatList
-                 data={this.state.dataSource}
-                 renderItem={({ item }) => (
-
-                const list = [
-                  {
-                    title: 'Brand Name',
-                  },
-
-                  {
-                    title: 'Calories',
-                    subtitle: {item.nf_calories}
-                  },
-                  {
-                    title: 'Total Fat',
-                    subtitle: {item.nf_total_fat} +'g'
-                  },
-                  {
-                    title: 'Saturated Fat',
-                    subtitle: {item.nf_saturated_fat} + 'g'
-                  },
-                  {
-                    title: 'Cholesterol',
-                    subtitle: {item.nf_cholesterol} + 'mg'
-                  },
-                  {
-                    title: 'Sodium',
-                    subtitle: {item.nf_sodium} + 'mg'
-                  },
-                  {
-                    title: 'Total Carbohydrate',
-                    subtitle: {item.nf_total_carbohydrate} +'g'
-                  },
-                  {
-                    title: 'Dietary Fiber',
-                    subtitle: {item.nf_dietary_fiber} + 'g'
-                  },
-                  {
-                    title: 'Sugar',
-                    subtitle: {item.nf_sugars} + 'g'
-                  },
-                  {
-                    title: 'Protein',
-                    subtitle: {item.nf_protein} + 'g'
-                  },
-                  {
-                    title: 'Potassium',
-                    subtitle: {item.nf_potassium} + 'g'
-                  },
-               ]
-
-                <View>
-                  {
-                    list.map((item, i) => (
-                      <ListItem
-                        key={i}
-                        title={item.title}
-                        leftIcon={{ name: item.icon }}
-                        bottomDivider
-                        chevron
-                      />
-                    ))
-                  }
-                </View>
-                  )}
-
-                  keyExtractor={({id}, index) => id}
-
+                   keyExtractor={this.keyExtractor}
+                   data={list}
+                   renderItem={this.renderItem}
              />
 
-        </View>
-
-
-      );
+      )
    }
 
 

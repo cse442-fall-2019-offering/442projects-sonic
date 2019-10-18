@@ -27,8 +27,6 @@ class Nutrition extends React.Component  {
   fetchData(text) {
     this.setState({ text });
     const url = 'https://trackapi.nutritionix.com/v2/search/instant?query=';
-    // const url = 'https://trackapi.nutritionix.com/v2/natural/nutrients?query=';
-     // const url = 'https://trackapi.nutritionix.com/v2/search/item?query=';
 
     fetch(url + text,
       {
@@ -74,7 +72,7 @@ class Nutrition extends React.Component  {
                      leftAvatar={{ source: { uri:  `${item.image} `} }}
                      title={`${item.food_name} `}
                      subtitle={'Calories: '+`${item.nf_calories}`}
-                     onPress={() => navigate('NutritionFactsScreen',{itemInformation:${item.nix_item_id}})}
+                     onPress={() => navigate('NutritionFactsScreen',{itemInformation:`${item.nix_item_id}`})}
 
                   />
 
