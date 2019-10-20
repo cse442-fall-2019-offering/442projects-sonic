@@ -38,8 +38,8 @@ class NutritionFacts extends React.Component  {
         'https://trackapi.nutritionix.com/v2/search/item?nix_item_id=' + `${this.state.itemInfo}`,
         {
                 headers:{
-                  'x-app-id' : '979e48c8',
-                  'x-app-key': 'e7cc162c38e1ee157bcad82667783fef'
+                  'x-app-id' : '48a4fb4d',
+                  'x-app-key': 'ab1a023c1f9211523c711e0bbdd17599'
                 }
         }
 
@@ -80,47 +80,93 @@ class NutritionFacts extends React.Component  {
            data={this.state.dataSource}
            renderItem={({item}) =>
            <View>
-           <ListItem
-                     title={`${item.brand_name} ` + `${item.food_name} `}
-                     subtitle ={"Serving Size: "+`${item.serving_qty} ` + `${item.serving_unit} `}
 
-           />
-           <ListItem
-                     title="Calories"
-                     subtitle={`${item.nf_calories} ` }
-           />
-           <ListItem
-                     title="Total Fat"
-                     subtitle ={`${item.nf_total_fat} ` + 'g'}
-           />
-           <ListItem
-                     title="Saturated Fat"
-                     subtitle ={`${item.nf_saturated_fat} `+'g'}
-           />
-           <ListItem
-                     title="Cholesterol"
-                     subtitle={`${item.nf_cholesterol} ` + 'mg'}
-           />
-           <ListItem
-                     title="Sodium"
-                     subtitle ={`${item.nf_sodium} ` + 'mg'}
-           />
-           <ListItem
-                     title="Total Carbohydrate"
-                     subtitle ={`${item.nf_total_carbohydrate} ` + 'g'}
-           />
-           <ListItem
-                     title="Dietary Fiber"
-                     subtitle={`${item.nf_dietary_fiber} ` + 'g' }
-           />
-           <ListItem
-                     title="Total Sugar"
-                     subtitle ={`${item.nf_sugars} ` +'g'}
-           />
-           <ListItem
-                     title="Protein"
-                     subtitle ={`${item.nf_protein} ` + 'g'}
-           />
+               <View style={{ flex: 1, justifyContent: "center", alignItems: "center"}} >
+                    <Image
+                      source={{ uri: item.photo.thumb }}
+                      style={{ width: 200, height: 200, flex:1 }}
+                    />
+               </View>
+
+               <ListItem
+                         title={`${item.brand_name} ` + `${item.food_name} `}
+                         titleStyle= {{textAlign:'center', fontWeight: 'bold', fontSize: 18,}}
+                         subtitle ={"Serving Size: "+`${item.serving_qty} ` + `${item.serving_unit} `}
+                         subtitleStyle = {{textAlign:'center'}}
+                         bottomDivider
+               />
+               <ListItem
+                         title="Calories"
+                         subtitle={`${item.nf_calories} ` }
+                         bottomDivider
+                         rightIcon=<Image
+                            style={{width: 50, height: 50, resizeMode: 'contain'}}
+                            source= {require('../Images/calories.png')} />
+               />
+               <ListItem
+                         title="Total Fat"
+                         subtitle ={`${item.nf_total_fat} ` + 'g'}
+                         bottomDivider
+                         rightIcon=<Image
+                            style={{width: 50, height: 50, resizeMode: 'contain'}}
+                            source= {require('../Images/fat.jpg')} />
+               />
+               <ListItem
+                         title="Saturated Fat"
+                         subtitle ={`${item.nf_saturated_fat} `+'g'}
+                         bottomDivider
+                         rightIcon=<Image
+                            style={{width: 50, height: 50, resizeMode: 'contain'}}
+                            source= {require('../Images/saturated_fat.png')} />
+               />
+               <ListItem
+                         title="Cholesterol"
+                         subtitle={`${item.nf_cholesterol} ` + 'mg'}
+                         bottomDivider
+                         rightIcon=<Image
+                            style={{width: 50, height: 50, resizeMode: 'contain'}}
+                            source= {require('../Images/cholesterol.png')} />
+               />
+               <ListItem
+                         title="Sodium"
+                         subtitle ={`${item.nf_sodium} ` + 'mg'}
+                         bottomDivider
+                         rightIcon=<Image
+                            style={{width: 50, height: 50/*, resizeMode: 'contain'*/}}
+                            source= {require('../Images/sodium.png')} />
+               />
+               <ListItem
+                         title="Total Carbohydrate"
+                         subtitle ={`${item.nf_total_carbohydrate} ` + 'g'}
+                         bottomDivider
+                         rightIcon=<Image
+                            style={{width: 50, height: 50, resizeMode: 'contain'}}
+                            source= {require('../Images/carbohydrates.png')} />
+               />
+               <ListItem
+                         title="Dietary Fiber"
+                         subtitle={`${item.nf_dietary_fiber} ` + 'g' }
+                         bottomDivider
+                         rightIcon=<Image
+                            style={{width: 50, height: 50, resizeMode: 'contain'}}
+                            source= {require('../Images/dietary_fiber.png')} />
+               />
+               <ListItem
+                         title="Total Sugar"
+                         subtitle ={`${item.nf_sugars} ` +'g'}
+                         bottomDivider
+                         rightIcon=<Image
+                            style={{width: 50, height: 50, resizeMode: 'contain'}}
+                            source= {require('../Images/sugar.jpg')} />
+               />
+               <ListItem
+                         title="Protein"
+                         subtitle ={`${item.nf_protein} ` + 'g'}
+                         bottomDivider
+                         rightIcon=<Image
+                            style={{width: 50, height: 50, resizeMode: 'contain'}}
+                            source= {require('../Images/protein.png')} />
+               />
            </View>
            }
            keyExtractor={({id}, index) => id}
