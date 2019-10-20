@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {
   SafeAreaView,
@@ -9,168 +8,117 @@ import {
   TextInput,
   StatusBar,
   ImageBackground,
-  Image
+  Image,
+  ActivityIndicator,
+  FlatList,
+  Input,
+  TouchableHighlight
 } from 'react-native';
+import { SearchBar, ListItem, Icon } from 'react-native-elements';
 
-import {Header} from 'react-native-elements'
 
 
 class Nutrition extends React.Component  {
-  render() {
-    const {navigate} = this.props.navigation;
-  return (
-   <View style = {styles.container}>
-    <View style = {styles.container1}>
-<Header
-  barStyle = {'dark-content'}
-  backgroundColor ={'white'}
-  leftComponent={{ icon: 'person', color: '#34eb8f', size: 35 }}
-  centerComponent={{ text: 'Tuesday', style: { color: '#34eb8f',fontSize : 25 } }}
-  rightComponent={{ icon: 'timeline', color: '#34eb8f',size: 35 }}
-/>
-<Text style = { styles.setFontSizeOne}>
-  776/1700 Calories
-</Text>
-
-<View style = {styles.subContainer}>
-  <Text style = {styles.subTitle}> PROTEIN </Text>
-  <Text style = {styles.subTitle1}> FAT </Text>
-  <Text style = {styles.subTitle2}> CARBS </Text>
-  </View>
-  <View style = {styles.subContainer1}>
-  <Text style = {styles.item}> 130g </Text>
-  <Text style = {styles.item1}> 32g </Text>
-  <Text style = {styles.item2}> 3.4g </Text>
-  </View>
-
-    <View style>
-    <Text style = {styles.mealTitle} > Meals</Text>
-    <Text> ___________________________________________________________</Text>
-    </View>
-
-      
-      <Text style = {styles.meal}> Breakfast </Text>
-
-      <View style = {styles.subContainer}>
-      <Text style = {styles.lol} onPress={() => navigate('Information',{name:'Jane'})}> Mac and Cheese (1 serving) </Text>
-      <Text style = {styles.lol}> 200 cal    14g 20g 1g </Text>
-      </View>
-
-      <Text style = {styles.meal}> Lunch </Text>
-      <View style = {styles.subContainer}>
-      <Text style = {styles.lol}> Chipotle Chicken Bowl (1 serving) </Text>
-      <Text style = {styles.lol}> 860 cal    32g 20g 1g </Text>
-      </View>
-
-      <Text style = {styles.meal}> Dinner </Text>
-      <View style = {styles.subContainer}>
-      <Text style = {styles.lol}> Chicken (32 oz serving) </Text>
-      <Text style = {styles.lol}> 350 cal    32g 20g 1g </Text>
-      </View>
-
-
-    </View>
-
-    
-
-  
-    </View>
-    
-
-
-
-
-
-  );
-}
-}
-
-const styles = StyleSheet.create({
-  container: {
-   flex:1,
-   justifyContent: 'flex-start',
-    backgroundColor: '#ffffff'
-  },
-  container1:{
-    alignItems: 'center',
-  },
-  subContainer:{
-    flexDirection: 'row',
-  },
-  subContainer1:{
-    flexDirection: 'row',
-  },
-  setFontSizeOne:{
-    padding: 30,
-    fontSize: 40,
-    fontFamily: 'Rubik-Light',
-    textAlign: 'center',
-    color: '#34eb8f' 
-    
-  },
-  subTitle:{
-    padding: 15,
-    fontSize: 20,
-    fontFamily: 'Rubik-Bold',
-    color: '#B7E5F6'
-  },
-  subTitle1:{
-    padding: 15,
-    fontSize: 20,
-    fontFamily: 'Rubik-Light',
-    textAlign: 'center',
-    color: '#ffe373'
-  },
-  subTitle2:{
-    padding: 15,
-    fontSize: 20,
-    fontFamily: 'Rubik-Bold',
-    textAlign: 'center',
-    color: '#FC2D2D'
-  },
-  item:{
-    padding: 15,
-    fontSize: 20,
-    fontFamily: 'Rubik-Light',
-    color: '#B7E5F6',
-    textAlign: 'center',
-  },
-  item1:{
-    padding: 15,
-    fontSize: 20,
-    fontFamily: 'Rubik-Light',
-    textAlign: 'center',
-    color: '#ffe373'
-
-  },
-  
-  item2:{
-    padding: 15,
-    fontSize: 20,
-    fontFamily: 'Rubik-Light',
-    textAlign: 'center',
-    color: '#FC2D2D'
-
-  },
-  mealTitle:{
-    padding: 20,
-    fontSize:20,
-    fontFamily: 'Rubik-Light',
-    textAlign: 'center',
-    color: '#696969'
-  },
-  meal :{
-    padding: 15,
-    fontSize:20,
-    fontFamily: 'Rubik-Light',
-    textAlign: 'left',
-    color: '#696969'
-  },
-  lol :{
-    fontFamily: 'Rubik-Light',
-    color: '#696969'
+  constructor(props){
+    super(props);
+    this.state = { isLoading: true }
   }
 
-  
-});
-export default Nutrition;
+  fetchData(text) {
+    this.setState({ text });
+    const url = 'https://trackapi.nutritionix.com/v2/search/instant?query=';
+
+    fetch(url + text,
+      {
+        headers:{
+          'x-app-id' : '979e48c8',
+          'x-app-key': 'e7cc162c38e1ee157bcad82667783fef'
+        }
+      })
+      .then(response => response.json())
+      .then((responseJson) => {
+        this.setState({
+          dataSource: responseJson.branded,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+
+
+
+   render(){
+
+      const {navigate} = this.props.navigation;
+
+
+      return(
+
+
+        <View style={styles.container}>
+
+
+             <TextInput
+                 placeholder="Type your food..."
+                 underlineColorAndroid = "#000000"
+                 onChangeText={(text) => { this.fetchData(text); }}
+             />
+
+             <FlatList
+                 data={this.state.dataSource}
+                 renderItem={({ item }) => (
+
+                 <ListItem
+
+                     leftAvatar={{ source: { uri:  `${item.image} `} }}
+                     title={`${item.food_name} `}
+                     subtitle={'Calories: '+`${item.nf_calories}`}
+                     onPress={() => navigate('NutritionFactsScreen',{itemInformation:`${item.nix_item_id}`})}
+
+                  />
+
+                  )}
+
+                  keyExtractor={({id}, index) => id}
+
+             />
+
+        </View>
+
+
+      );
+    }
+  }
+
+
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      paddingTop: 24,
+      backgroundColor: 'white',
+    },
+    content: {
+      paddingBottom: 300,
+    },
+    card1: {
+      paddingVertical: 16,
+    },
+    card2: {
+      padding: 16,
+    },
+    input: {
+      marginTop: 4,
+    },
+    title: {
+      paddingBottom: 16,
+      textAlign: 'center',
+      color: '#404d5b',
+      fontSize: 20,
+      fontWeight: 'bold',
+      opacity: 0.8,
+    },
+  });
+  export default Nutrition;

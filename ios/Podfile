@@ -1,8 +1,13 @@
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
+<<<<<<< HEAD
 target 'NutritionGo' do
   # Pods for NutritionGo
+=======
+target 'Nutrition' do
+  # Pods for Nutrition
+>>>>>>> nutrition_facts
   pod 'React', :path => '../node_modules/react-native/'
   pod 'React-Core', :path => '../node_modules/react-native/React'
   pod 'React-DevSupport', :path => '../node_modules/react-native/React'
@@ -27,9 +32,16 @@ target 'NutritionGo' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+<<<<<<< HEAD
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   target 'NutritionGoTests' do
+=======
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  target 'NutritionTests' do
+>>>>>>> nutrition_facts
     inherit! :search_paths
     # Pods for testing
   end
@@ -37,10 +49,17 @@ target 'NutritionGo' do
   use_native_modules!
 end
 
+<<<<<<< HEAD
 target 'NutritionGo-tvOS' do
   # Pods for NutritionGo-tvOS
 
   target 'NutritionGo-tvOSTests' do
+=======
+target 'Nutrition-tvOS' do
+  # Pods for Nutrition-tvOS
+
+  target 'Nutrition-tvOSTests' do
+>>>>>>> nutrition_facts
     inherit! :search_paths
     # Pods for testing
   end
