@@ -12,7 +12,7 @@ import { Input } from 'react-native-elements';
 import SignUp from './screens/SignUp'
 import Nutrition from './screens/Nutrition'
 import Login from './screens/Login'
-import NutritionInfo from './screens/NutritionFacts'
+import NutritionFacts from './screens/NutritionFacts'
 
 
 

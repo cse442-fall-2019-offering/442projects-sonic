@@ -51,6 +51,9 @@ class Nutrition extends React.Component  {
 
    render(){
 
+      const {navigate} = this.props.navigation;
+
+
       return(
 
 
@@ -119,3 +122,6 @@ class Nutrition extends React.Component  {
     },
   });
   export default Nutrition;
+
+
+

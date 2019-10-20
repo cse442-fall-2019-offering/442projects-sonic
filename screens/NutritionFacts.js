@@ -26,104 +26,107 @@ class NutritionFacts extends React.Component  {
     this.state = {
         isLoading: true,
         itemInfo: this.props.navigation.state.params.itemInformation,
+    //    foods: []
     };
+
   }
 
 
-  ComponentDidMount(){
-    return fetch('https://trackapi.nutritionix.com/v2/search/item?nix_item_id=513fc9e73fe3ffd40300109f',
-      {
-        headers:{
-          'x-app-id' : '979e48c8',
-          'x-app-key': 'e7cc162c38e1ee157bcad82667783fef'
+ componentDidMount(){
+    let foods = [];
+     return fetch(
+        'https://trackapi.nutritionix.com/v2/search/item?nix_item_id=' + `${this.state.itemInfo}`,
+        {
+                headers:{
+                  'x-app-id' : '979e48c8',
+                  'x-app-key': 'e7cc162c38e1ee157bcad82667783fef'
+                }
         }
-      })
-      .then(response => response.json())
-      .then((responseJson) => {
-        this.setState({
-          dataSource: responseJson.foods,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
 
-  }
-
-        const list = [
-                    {
-                      title: 'Brand Name',
-                      subtitle: ' '
-                    },
-
-                    {
-                      title: 'Calories',
-                      subtitle: {this.state.dataSource.nf_calories}
-                    },
-                    {
-                      title: 'Total Fat',
-                      subtitle: {this.state.dataSource.nf_total_fat} +'g'
-                    },
-                    {
-                      title: 'Saturated Fat',
-                      subtitle: {this.state.dataSource.nf_saturated_fat} + 'g'
-                    },
-                    {
-                      title: 'Cholesterol',
-                      subtitle: {this.state.dataSource.nf_cholesterol} + 'mg'
-                    },
-                    {
-                      title: 'Sodium',
-                      subtitle: {this.state.dataSource.nf_sodium} + 'mg'
-                    },
-                    {
-                      title: 'Total Carbohydrate',
-                      subtitle: {this.state.dataSource.nf_total_carbohydrate} +'g'
-                    },
-                    {
-                      title: 'Dietary Fiber',
-                      subtitle: {this.state.dataSource.nf_dietary_fiber} + 'g'
-                    },
-                    {
-                      title: 'Sugar',
-                      subtitle: {this.state.dataSource.nf_sugars} + 'g'
-                    },
-                    {
-                      title: 'Protein',
-                      subtitle: {this.state.dataSource.nf_protein} + 'g'
-                    },
-                    {
-                      title: 'Potassium',
-                      subtitle: {this.state.dataSource.nf_potassium} + 'mg'
-                    },
-        ]
+        )
+       .then((response) => response.json())
+       .then((responseJson) => {
 
 
 
-    keyExtractor = (item, index) => index.toString()
+         this.setState({
+           isLoading: false,
+           dataSource: responseJson.foods,
+         }, function(){
 
-    renderItem = ({ item }) => (
-        <ListItem
-            title={item.title}
-            subtitle={item.subtitle}
-            bottomDivider
-            chevron
-        />
-    )
+         });
 
+
+
+       })
+       .catch((error) =>{
+         console.error(error);
+       });
+   }
 
    render(){
 
-      return(
+     if(this.state.isLoading){
+       return(
+        <View style={styles.container}>
+           <ActivityIndicator/>
+         </View>
+       )
+     }
 
+     return(
+        <View style={styles.container}>
+         <FlatList
+           data={this.state.dataSource}
+           renderItem={({item}) =>
+           <View>
+           <ListItem
+                     title={`${item.brand_name} ` + `${item.food_name} `}
+                     subtitle ={`${item.serving_qty} ` + `${item.serving_unit} `}
 
-             <FlatList
-                   keyExtractor={this.keyExtractor}
-                   data={list}
-                   renderItem={this.renderItem}
-             />
-
-      )
+           />
+           <ListItem
+                     title="Calories"
+                     subtitle={`${item.nf_calories} ` }
+           />
+           <ListItem
+                     title="Total Fat"
+                     subtitle ={`${item.nf_total_fat} ` + 'g'}
+           />
+           <ListItem
+                     title="Saturated Fat"
+                     subtitle ={`${item.nf_saturated_fat} `+'g'}
+           />
+           <ListItem
+                     title="Cholesterol"
+                     subtitle={`${item.nf_cholesterol} ` + 'mg'}
+           />
+           <ListItem
+                     title="Sodium"
+                     subtitle ={`${item.nf_sodium} ` + 'mg'}
+           />
+           <ListItem
+                     title="Total Carbohydrate"
+                     subtitle ={`${item.nf_total_carbohydrate} ` + 'g'}
+           />
+           <ListItem
+                     title="Dietary Fiber"
+                     subtitle={`${item.nf_dietary_fiber} ` + 'g' }
+           />
+           <ListItem
+                     title="Total Sugar"
+                     subtitle ={`${item.nf_sugars} ` +'g'}
+           />
+           <ListItem
+                     title="Protein"
+                     subtitle ={`${item.nf_protein} ` + 'g'}
+           />
+           </View>
+           }
+           keyExtractor={({id}, index) => id}
+         />
+       </View>
+     );
    }
 
 
