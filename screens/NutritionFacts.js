@@ -82,7 +82,7 @@ class NutritionFacts extends React.Component  {
            <View>
            <ListItem
                      title={`${item.brand_name} ` + `${item.food_name} `}
-                     subtitle ={`${item.serving_qty} ` + `${item.serving_unit} `}
+                     subtitle ={"Serving Size: "+`${item.serving_qty} ` + `${item.serving_unit} `}
 
            />
            <ListItem
