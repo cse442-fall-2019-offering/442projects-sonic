@@ -1,170 +1,206 @@
 import React from 'react';
-import { View, Text,StyleSheet,DatePickerAndroid,Picker,ScrollView,StatusBar,TextInput,Image} from 'react-native';
+import { View, Text, StyleSheet, DatePickerAndroid, Picker, ScrollView, StatusBar, TextInput, Image, Alert } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import LinearGradient from 'react-native-linear-gradient';
-import {Button,Icon} from 'react-native-elements'
+import { Button, Icon } from 'react-native-elements'
 
 class Profile extends React.Component {
- 
-  state = { choosenLabel: '', choosenindex: '' };
 
-  render() {
-    const {navigate} = this.props.navigation;
-    return (
-       <LinearGradient colors= {['#61045f','#20011f']} style = {styles.LinearGradientView}>
-           <ScrollView
-               showsVerticalScrollIndicator = {false}
-               keyboardDismissMode = 'on-drag' >
+    state = { 
+        choosenLabel: '', 
+        choosenindex: '', 
+        email: '',
+        fullName: '',
+        password: '',
+        passwordReEnter: '',
+        dateOfBirth: '',
+        location: '',
+        phoneNumber: '',
+        sex: '',
+        height: '',
+        currentWeight: '',
+        goalWeight: ''
+     };
 
-               <StatusBar backgroundColor="black" barStyle="light-content" />
-               <Text style = {styles.SignUpText}> Sign Up </Text>
+     authinticate(email_, /*fullName_,*/ password_, passwordReEnter_/*, dateOfBirth_, location_, phoneNumber_, sex_,
+        height_, currentWeight_, goalWeight_ */     ){
+            if( (email_.includes('@')) && !(password_ ==='') && (passwordReEnter_ === password_)){
+                Alert.alert('good! --'+ email_+ ', ' + password_ + ', '+ passwordReEnter_);
+            }else{
+                Alert.alert('bad! --'+email_+ ', ' + password_ + ', '+ passwordReEnter_);
+            }
+     }
 
+    render() {
 
-               <TextInput style= {styles.InputBox}
-                   placeholder='Email Address'
-                   placeholderTextColor='#ffffff'
-                   underlineColorAndroid= 'transparent'
-               />
+        const { navigate } = this.props.navigation;
+        return (
+            <LinearGradient colors={['#61045f', '#20011f']} style={styles.LinearGradientView}>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    keyboardDismissMode='on-drag' >
 
-               <TextInput style= {styles.InputBox}
-                   placeholder='Full Name'
-                   placeholderTextColor='#ffffff'
-                   underlineColorAndroid= 'transparent'
-               />
-
-               <TextInput style= {styles.InputBox}
-                   placeholder='Password'
-                   placeholderTextColor='#ffffff'
-                   underlineColorAndroid= 'transparent'
-               />
-
-               <TextInput style= {styles.InputBox}
-                   placeholder='Re-enter password'
-                   placeholderTextColor='#ffffff'
-                   underlineColorAndroid= 'transparent'
-               />
-
-               <TextInput style= {styles.InputBox}
-                   placeholder='Date of Birth'
-                   placeholderTextColor='#ffffff'
-                   underlineColorAndroid= 'transparent'
-               />
-
-               <TextInput style= {styles.InputBox}
-                   placeholder='Location'
-                   placeholderTextColor='#ffffff'
-                   underlineColorAndroid= 'transparent'
-               />
-
-               <TextInput style= {styles.InputBox}
-                   placeholder='Phone Number'
-                   placeholderTextColor='#ffffff'
-                   underlineColorAndroid= 'transparent'
-               />
-
-               <View>
-
-                    <Text style={{color:'white'}}>Sex</Text>
+                    <StatusBar backgroundColor="black" barStyle="light-content" />
+                    <Text style={styles.SignUpText}> Sign Up </Text>
 
 
+                    <TextInput style={styles.InputBox}
+                        placeholder='Email Address'
+                        placeholderTextColor='#ffffff'
+                        underlineColorAndroid='transparent'
+                        onChangeText = {text => this.setState({email: text})}
+                    />
 
-                    <Picker style = {{color:'white'}}
-                        selectedValue={this.state.choosenLabel}
-                        onValueChange={(itemValue, itemIndex) =>
-                        this.setState({ choosenLabel: itemValue, choosenindex: itemIndex })
-                    }>
+                    <TextInput style={styles.InputBox}
+                        placeholder='Full Name'
+                        placeholderTextColor='#ffffff'
+                        underlineColorAndroid='transparent'
+                        onChangeText = {text => this.setState({fullName: text})}
+                    />
 
-                       <Picker.Item label ='Male' value ='Male' />
-                       <Picker.Item label = 'Female' value = 'Female' />
+                    <TextInput style={styles.InputBox}
+                        placeholder='Password'
+                        placeholderTextColor='#ffffff'
+                        underlineColorAndroid='transparent'
+                        onChangeText = {text => this.setState({password: text})}
+                    />
 
-                    </Picker>
+                    <TextInput style={styles.InputBox}
+                        placeholder='Re-enter password'
+                        placeholderTextColor='#ffffff'
+                        underlineColorAndroid='transparent'
+                        onChangeText = {text => this.setState({passwordReEnter: text})}
+                    />
 
-               </View>
+                    <TextInput style={styles.InputBox}
+                        placeholder='Date of Birth'
+                        placeholderTextColor='#ffffff'
+                        underlineColorAndroid='transparent'
+                        onChangeText = {text => this.setState({dateOfBirth: text})}
+                    />
 
-               <TextInput style= {styles.InputBox}
-                   placeholder='Height'
-                   placeholderTextColor='#ffffff'
-                   underlineColorAndroid= 'transparent'
-               />
+                    <TextInput style={styles.InputBox}
+                        placeholder='Location'
+                        placeholderTextColor='#ffffff'
+                        underlineColorAndroid='transparent'
+                        onChangeText = {text => this.setState({location: text})}
+                    />
 
-               <TextInput style= {styles.InputBox}
-                   placeholder='Current Weight'
-                   placeholderTextColor='#ffffff'
-                   underlineColorAndroid= 'transparent'
-               />
+                    <TextInput style={styles.InputBox}
+                        placeholder='Phone Number'
+                        placeholderTextColor='#ffffff'
+                        underlineColorAndroid='transparent'
+                        onChangeText = {text => this.setState({phoneNumber: text})}
+                    />
 
-               <TextInput style= {styles.InputBox}
-                   placeholder='Goal Weight'
-                   placeholderTextColor='#ffffff'
-                   underlineColorAndroid= 'transparent'
-               />
+                    <View>
 
-
-               <View>
-
-                    <Text style={{color:'white'}}>Activity Level</Text>
-
-                    <Picker style = {{color:'white'}}
-                        selectedValue={this.state.choosenLabel}
-                        onValueChange={(itemValue, itemIndex) =>
-                        this.setState({ choosenLabel: itemValue, choosenindex: itemIndex })
-                    }>
-
-                       <Picker.Item label ='Sedentary (little to no exercise)' value ='1.2' />
-                       <Picker.Item label ='Lightly Active (lightly exercise/sports 1-3 days/week)' value = '1.375' />
-                       <Picker.Item label ='Moderately Active (moderate exercise/sports 3-5 days/week)' value = '1.55' />
-                       <Picker.Item label ='Very Active (hard exercise/sports 6-7 days/week)' value = '1.725' />
-                       <Picker.Item label ='Extremely Active (very heavy exercise/physical job/training twice a day)' value = '1.9'/>
-                    </Picker>
-
-               </View>
-
-
-               <Button
-                   large
-                   raised
-                   rounded= {true}
-                   title= "Let's Get Started!"
-                   icon = {{name:'ios-cloud-done', type:'ionicon', buttonStyle: styles.someButtonStyle}}
-                   onPress={() => navigate('Nutrition',{name:'Jane'})}
-               />
+                        <Text style={{ color: 'white' }}>Sex</Text>
 
 
 
+                        <Picker style={{ color: 'white' }}
+                            selectedValue={this.state.choosenLabel}
+                            onValueChange={(itemValue, itemIndex) =>
+                                this.setState({ choosenLabel: itemValue, choosenindex: itemIndex, sex: itemValue })
+                            }>
+
+                            <Picker.Item label='Male' value='Male' />
+                            <Picker.Item label='Female' value='Female' />
+                        </Picker>
+
+                    </View>
+
+                    <TextInput style={styles.InputBox}
+                        placeholder='Height'
+                        placeholderTextColor='#ffffff'
+                        underlineColorAndroid='transparent'
+                        onChangeText = {text => this.setState({height: text})}
+                    />
+
+                    <TextInput style={styles.InputBox}
+                        placeholder='Current Weight'
+                        placeholderTextColor='#ffffff'
+                        underlineColorAndroid='transparent'
+                        onChangeText = {text => this.setState({currentWeight: text} )}
+                    />
+
+                    <TextInput style={styles.InputBox}
+                        placeholder='Goal Weight'
+                        placeholderTextColor='#ffffff'
+                        underlineColorAndroid='transparent'
+                        onChangeText = {text => this.setState({goalWeight: text})}
+                    />
 
 
-           </ScrollView>
-       </LinearGradient>
+                    <View style= {{paddingBottom: 25}}>
+
+                        <Text style={{ color: 'white' }}>Activity Level</Text>
+
+                        <Picker style={{ color: 'white' , paddingBottom: 10}}
+                            selectedValue={this.state.choosenLabel}
+                            onValueChange={(itemValue, itemIndex) =>
+                                this.setState({ choosenLabel: itemValue, choosenindex: itemIndex })
+                            }>
+
+                            <Picker.Item label='Sedentary (little to no exercise)' value='1.2' />
+                            <Picker.Item label='Lightly Active (lightly exercise/sports 1-3 days/week)' value='1.375' />
+                            <Picker.Item label='Moderately Active (moderate exercise/sports 3-5 days/week)' value='1.55' />
+                            <Picker.Item label='Very Active (hard exercise/sports 6-7 days/week)' value='1.725' />
+                            <Picker.Item label='Extremely Active (very heavy exercise/physical job/training twice a day)' value='1.9' />
+                        </Picker>
+
+                    </View>
 
 
-    );
-  }
+                    <Button
+                        large
+                        raised
+                        rounded={true}
+                        title="Let's Get Started!"
+                        icon={{ name: 'ios-cloud-done', type: 'ionicon', buttonStyle: styles.someButtonStyle }}
+                        onPress={() => {navigate('Nutrition', { name: 'Jane' }) 
+                            this.authinticate(this.state.email, this.state.password, this.state.passwordReEnter);
+                    
+                        }   }
+                    />
+
+
+
+
+
+                </ScrollView>
+            </LinearGradient>
+
+
+        );
+    }
 }
 
 
 const styles = StyleSheet.create({
 
-   LinearGradientView:{
-       flex:1,
-       alignItems: 'center',
-   },
+    LinearGradientView: {
+        flex: 1,
+        alignItems: 'center',
+    },
 
-   SignUpText:{
-       fontSize: 44,
-       color: 'white',
-       padding: 50
-   },
+    SignUpText: {
+        fontSize: 44,
+        color: 'white',
+        padding: 50
+    },
 
-   InputBox:{
-       width: 300,
-       backgroundColor: '#0C0032',
-       borderRadius: 25,
-       paddingHorizontal: 16,
-       marginVertical: 10,
-       color: '#ffffff'
+    InputBox: {
+        width: 300,
+        backgroundColor: '#0C0032',
+        borderRadius: 25,
+        paddingHorizontal: 16,
+        marginVertical: 10,
+        color: '#ffffff'
 
-   },
+    },
 
 
 

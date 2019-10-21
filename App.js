@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text,Button,Image,TouchableHighlight} from 'react-native';
+import { View, Text,Button,Image,TouchableHighlight, Alert} from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import ProfileScreen from './screens/Profile'
