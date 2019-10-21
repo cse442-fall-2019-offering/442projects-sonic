@@ -14,7 +14,7 @@ import {
   Input,
   TouchableHighlight
 } from 'react-native';
-import { SearchBar, ListItem, Icon } from 'react-native-elements';
+import { SearchBar, ListItem, Icon, Button } from 'react-native-elements';
 
 
 
@@ -26,7 +26,6 @@ class NutritionFacts extends React.Component  {
     this.state = {
         isLoading: true,
         itemInfo: this.props.navigation.state.params.itemInformation,
-    //    foods: []
     };
 
   }
@@ -82,10 +81,24 @@ class NutritionFacts extends React.Component  {
            <View>
 
                <View style={{ flex: 1, justifyContent: "center", alignItems: "center"}} >
+
                     <Image
                       source={{ uri: item.photo.thumb }}
                       style={{ width: 200, height: 200, flex:1 }}
                     />
+
+                    <Button
+                      large
+                      raised
+                      rounded= {true}
+                      title= "Add"
+                      titleStyle = {{color:'#000000'}}
+                      iconRight = {true}
+                      buttonStyle = {{backgroundColor:'#FFFFFF',paddingVertical: 10}}
+                      icon = {{name:'ios-add-circle-outline', type:'ionicon'}}
+                    //  onPress={() => navigate('')}
+                    />
+
                </View>
 
                <ListItem

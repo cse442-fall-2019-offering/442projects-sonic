@@ -61,6 +61,7 @@ class Nutrition extends React.Component  {
 
 
              <TextInput
+                 style={{height: 50, borderColor: 'black', borderWidth: 1}}
                  placeholder="Type your food..."
                  underlineColorAndroid = "#000000"
                  onChangeText={(text) => { this.fetchData(text); }}
