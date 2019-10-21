@@ -3,13 +3,14 @@ import { View, Text, StyleSheet, DatePickerAndroid, Picker, ScrollView, StatusBa
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import LinearGradient from 'react-native-linear-gradient';
-import { Button, Icon } from 'react-native-elements'
+import { Button, Icon } from 'react-native-elements';
+import * as firebase from 'firebase';
 
 class Profile extends React.Component {
 
-    state = { 
-        choosenLabel: '', 
-        choosenindex: '', 
+    state = {
+        choosenLabel: '',
+        choosenindex: '',
         email: '',
         fullName: '',
         password: '',
@@ -21,16 +22,48 @@ class Profile extends React.Component {
         height: '',
         currentWeight: '',
         goalWeight: ''
-     };
+    };
 
-     authinticate(email_, /*fullName_,*/ password_, passwordReEnter_/*, dateOfBirth_, location_, phoneNumber_, sex_,
-        height_, currentWeight_, goalWeight_ */     ){
-            if( (email_.includes('@')) && !(password_ ==='') && (passwordReEnter_ === password_)){
-                Alert.alert('good! --'+ email_+ ', ' + password_ + ', '+ passwordReEnter_);
-            }else{
-                Alert.alert('bad! --'+email_+ ', ' + password_ + ', '+ passwordReEnter_);
-            }
-     }
+    componentWillMount() {
+
+        // To Configure react native app with cloud of Google Firebase database !
+        var config = {
+            apiKey: "AIzaSyAhQDAzgnHPymQkc1BNeB0sPKJTvPfZ20c",
+            authDomain: "nutrition-go.firebaseapp.com",
+            databaseURL: "https://nutrition-go.firebaseio.com",
+            projectId: "nutrition-go",
+            storageBucket: "nutrition-go.appspot.com",
+            messagingSenderId: "353598024085",
+            appId: "1:353598024085:web:b3e7f5645a5705a4186e9c",
+            measurementId: "G-CLRT6JSHLW"
+        };
+        firebase.initializeApp(config);
+
+    }
+
+    authinticate(email_, fullName_, password_, passwordReEnter_, dateOfBirth_, location_, phoneNumber_, sex_,
+        height_, currentWeight_, goalWeight_) {
+        if ((email_.includes('@')) && !(password_ === '') && (passwordReEnter_ === password_)) {
+            Alert.alert('good! --' + email_ + ', ' + password_ + ', ' + passwordReEnter_);
+            firebase.database().ref('users/').push({
+                email: email_,
+                fullName: fullName_,
+                password: password_,
+                passwordReEnter: passwordReEnter_,
+                dateOfBirth: dateOfBirth_,
+                location: location_,
+                phoneNumber: phoneNumber_,
+                sex: sex_,
+                height: height_,
+                currentWeight: currentWeight_,
+                goalWeight: goalWeight_
+            });
+
+
+        } else {
+            Alert.alert('bad! --' + email_ + ', ' + password_ + ', ' + passwordReEnter_);
+        }
+    }
 
     render() {
 
@@ -49,49 +82,49 @@ class Profile extends React.Component {
                         placeholder='Email Address'
                         placeholderTextColor='#ffffff'
                         underlineColorAndroid='transparent'
-                        onChangeText = {text => this.setState({email: text})}
+                        onChangeText={text => this.setState({ email: text })}
                     />
 
                     <TextInput style={styles.InputBox}
                         placeholder='Full Name'
                         placeholderTextColor='#ffffff'
                         underlineColorAndroid='transparent'
-                        onChangeText = {text => this.setState({fullName: text})}
+                        onChangeText={text => this.setState({ fullName: text })}
                     />
 
                     <TextInput style={styles.InputBox}
                         placeholder='Password'
                         placeholderTextColor='#ffffff'
                         underlineColorAndroid='transparent'
-                        onChangeText = {text => this.setState({password: text})}
+                        onChangeText={text => this.setState({ password: text })}
                     />
 
                     <TextInput style={styles.InputBox}
                         placeholder='Re-enter password'
                         placeholderTextColor='#ffffff'
                         underlineColorAndroid='transparent'
-                        onChangeText = {text => this.setState({passwordReEnter: text})}
+                        onChangeText={text => this.setState({ passwordReEnter: text })}
                     />
 
                     <TextInput style={styles.InputBox}
                         placeholder='Date of Birth'
                         placeholderTextColor='#ffffff'
                         underlineColorAndroid='transparent'
-                        onChangeText = {text => this.setState({dateOfBirth: text})}
+                        onChangeText={text => this.setState({ dateOfBirth: text })}
                     />
 
                     <TextInput style={styles.InputBox}
                         placeholder='Location'
                         placeholderTextColor='#ffffff'
                         underlineColorAndroid='transparent'
-                        onChangeText = {text => this.setState({location: text})}
+                        onChangeText={text => this.setState({ location: text })}
                     />
 
                     <TextInput style={styles.InputBox}
                         placeholder='Phone Number'
                         placeholderTextColor='#ffffff'
                         underlineColorAndroid='transparent'
-                        onChangeText = {text => this.setState({phoneNumber: text})}
+                        onChangeText={text => this.setState({ phoneNumber: text })}
                     />
 
                     <View>
@@ -116,29 +149,29 @@ class Profile extends React.Component {
                         placeholder='Height'
                         placeholderTextColor='#ffffff'
                         underlineColorAndroid='transparent'
-                        onChangeText = {text => this.setState({height: text})}
+                        onChangeText={text => this.setState({ height: text })}
                     />
 
                     <TextInput style={styles.InputBox}
                         placeholder='Current Weight'
                         placeholderTextColor='#ffffff'
                         underlineColorAndroid='transparent'
-                        onChangeText = {text => this.setState({currentWeight: text} )}
+                        onChangeText={text => this.setState({ currentWeight: text })}
                     />
 
                     <TextInput style={styles.InputBox}
                         placeholder='Goal Weight'
                         placeholderTextColor='#ffffff'
                         underlineColorAndroid='transparent'
-                        onChangeText = {text => this.setState({goalWeight: text})}
+                        onChangeText={text => this.setState({ goalWeight: text })}
                     />
 
 
-                    <View style= {{paddingBottom: 25}}>
+                    <View style={{ paddingBottom: 25 }}>
 
                         <Text style={{ color: 'white' }}>Activity Level</Text>
 
-                        <Picker style={{ color: 'white' , paddingBottom: 10}}
+                        <Picker style={{ color: 'white', paddingBottom: 10 }}
                             selectedValue={this.state.choosenLabel}
                             onValueChange={(itemValue, itemIndex) =>
                                 this.setState({ choosenLabel: itemValue, choosenindex: itemIndex })
@@ -160,10 +193,13 @@ class Profile extends React.Component {
                         rounded={true}
                         title="Let's Get Started!"
                         icon={{ name: 'ios-cloud-done', type: 'ionicon', buttonStyle: styles.someButtonStyle }}
-                        onPress={() => {navigate('Nutrition', { name: 'Jane' }) 
-                            this.authinticate(this.state.email, this.state.password, this.state.passwordReEnter);
-                    
-                        }   }
+                        onPress={() => {
+                            navigate('Nutrition', { name: 'Jane' })
+                            this.authinticate(this.state.email, this.state.fullName, this.state.password, this.state.passwordReEnter,
+                                this.state.dateOfBirth, this.state.location, this.state.phoneNumber, this.state.sex, this.state.height,
+                                this.state.currentWeight, this.state.goalWeight);
+
+                        }}
                     />
 
 
