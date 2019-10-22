@@ -37,31 +37,52 @@ class Profile extends React.Component {
             appId: "1:353598024085:web:b3e7f5645a5705a4186e9c",
             measurementId: "G-CLRT6JSHLW"
         };
-        firebase.initializeApp(config);
+        
+        //firebase.initializeApp(config);
 
     }
 
     authinticate(email_, fullName_, password_, passwordReEnter_, dateOfBirth_, location_, phoneNumber_, sex_,
         height_, currentWeight_, goalWeight_) {
         if ((email_.includes('@')) && !(password_ === '') && (passwordReEnter_ === password_)) {
-            Alert.alert('good! --' + email_ + ', ' + password_ + ', ' + passwordReEnter_);
-            firebase.database().ref('users/').set({
-                email: email_,
-                fullName: fullName_,
-                password: password_,
-                dateOfBirth: dateOfBirth_,
-                location: location_,
-                phoneNumber: phoneNumber_,
-                sex: sex_,
-                height: height_,
-                currentWeight: currentWeight_,
-                goalWeight: goalWeight_
+            
+            firebase.auth().createUserWithEmailAndPassword(email_, password_).catch(function(error) {
+                    // Handle Errors here.
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    if (errorCode == 'auth/weak-password') {
+                        alert('The password is too weak.');
+                    } else {
+                        alert(errorMessage);
+                    }
+                    console.log(error);
             });
+            var id = firebase.auth().currentUser.uid;
+            if (id != null) {
+                firebase.database().ref('users/'+ id).set({
+                    email: email_,
+                    fullName: fullName_,
+                    password: password_,
+                    dateOfBirth: dateOfBirth_,
+                    location: location_,
+                    phoneNumber: phoneNumber_,
+                    sex: sex_,
+                    height: height_,
+                    currentWeight: currentWeight_,
+                    goalWeight: goalWeight_
+                });
+              }
+
+            // Alert.alert('good! --' + email_ + ', ' + password_ + ', ' + passwordReEnter_);
+            
 
 
         } else {
             Alert.alert('bad! --' + email_ + ', ' + password_ + ', ' + passwordReEnter_);
+            return false;
         }
+
+        return true;
     }
 
     render() {
@@ -193,10 +214,12 @@ class Profile extends React.Component {
                         title="Let's Get Started!"
                         icon={{ name: 'ios-cloud-done', type: 'ionicon', buttonStyle: styles.someButtonStyle }}
                         onPress={() => {
-                            navigate('Nutrition', { name: 'Jane' })
-                            this.authinticate(this.state.email, this.state.fullName, this.state.password, this.state.passwordReEnter,
+                            //navigate('Nutrition', { name: 'Jane' })
+                            if (this.authinticate(this.state.email, this.state.fullName, this.state.password, this.state.passwordReEnter,
                                 this.state.dateOfBirth, this.state.location, this.state.phoneNumber, this.state.sex, this.state.height,
-                                this.state.currentWeight, this.state.goalWeight);
+                                this.state.currentWeight, this.state.goalWeight)){
+                                    navigate('Nutrition', { name: 'Jane' })
+                                }
 
                         }}
                     />

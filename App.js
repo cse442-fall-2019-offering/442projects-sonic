@@ -12,18 +12,11 @@ import * as firebase from 'firebase';
 
 
 class HomeScreen extends React.Component {
+
   state = {
-    email: '',
-    fullName: '',
-    password: '',
-    passwordReEnter: '',
-    dateOfBirth: '',
-    location: '',
-    phoneNumber: '',
-    sex: '',
-    height: '',
-    currentWeight: '',
-    goalWeight: ''
+    user: null,
+    isLoggedIn: false,
+    good: false
   }
 
   componentWillMount() {
@@ -44,23 +37,7 @@ class HomeScreen extends React.Component {
   }
 
   user_login(email_, password_) {
-    let user = {
-      email: '',
-      fullName: '',
-      password: '',
-      passwordReEnter: '',
-      dateOfBirth: '',
-      location: '',
-      phoneNumber: '',
-      sex: '',
-      height: '',
-      currentWeight: '',
-      goalWeight: ''
-    }
-     
-
-    firebase.auth().signInWithEmailAndPassword(email_, password_)
-      .catch(function (error) {
+    var good = firebase.auth().signInWithEmailAndPassword(email_, password_).catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -70,7 +47,10 @@ class HomeScreen extends React.Component {
           alert(errorMessage);
         }
         console.log(error);
+        alert('here');
+        return false;
       });
+      return true;
   }
 
   static navigationOptions = {
@@ -128,7 +108,9 @@ class HomeScreen extends React.Component {
             }}
             onPress={() => {
               //Alert.alert('Log In button pressed');
-              this.user_login(this.state.email, this.state.password);
+              if( (this.user_login(this.state.email, this.state.password)) == true ){
+                navigate('Nutrition', { name: 'Jane' })
+              }
             }}
           >
             <Text style={{ fontWeight: 'bold' }}>       LOG IN      </Text>
