@@ -45,11 +45,10 @@ class Profile extends React.Component {
         height_, currentWeight_, goalWeight_) {
         if ((email_.includes('@')) && !(password_ === '') && (passwordReEnter_ === password_)) {
             Alert.alert('good! --' + email_ + ', ' + password_ + ', ' + passwordReEnter_);
-            firebase.database().ref('users/').push({
+            firebase.database().ref('users/').set({
                 email: email_,
                 fullName: fullName_,
                 password: password_,
-                passwordReEnter: passwordReEnter_,
                 dateOfBirth: dateOfBirth_,
                 location: location_,
                 phoneNumber: phoneNumber_,
