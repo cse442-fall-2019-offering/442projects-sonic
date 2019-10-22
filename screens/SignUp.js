@@ -140,8 +140,8 @@ class SignUp extends React.Component {
                        raised
                        rounded= {true}
                        title= "Let's Get Started!"
-                       icon = {{name:'ios-cloud-done', type:'ionicon', buttonStyle: styles.someButtonStyle}}
-                       onPress={() => navigate('SearchScreen',{name:'Jane'})}
+                       icon = {{name:'ios-cloud-done', type:'ionicon'}}
+                       onPress={() => navigate('SearchScreen')}
                    />
 
 

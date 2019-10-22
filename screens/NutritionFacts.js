@@ -14,7 +14,7 @@ import {
   Input,
   TouchableHighlight
 } from 'react-native';
-import { SearchBar, ListItem, Icon } from 'react-native-elements';
+import { SearchBar, ListItem, Icon, Button } from 'react-native-elements';
 
 
 
@@ -26,7 +26,6 @@ class NutritionFacts extends React.Component  {
     this.state = {
         isLoading: true,
         itemInfo: this.props.navigation.state.params.itemInformation,
-    //    foods: []
     };
 
   }
@@ -66,6 +65,9 @@ class NutritionFacts extends React.Component  {
 
    render(){
 
+    const { navigate } = this.props.navigation;
+
+
      if(this.state.isLoading){
        return(
         <View style={styles.container}>
@@ -79,53 +81,138 @@ class NutritionFacts extends React.Component  {
          <FlatList
            data={this.state.dataSource}
            renderItem={({item}) =>
-           <View>
-           <ListItem
-                     title={`${item.brand_name} ` + `${item.food_name} `}
-                     subtitle ={"Serving Size: "+`${item.serving_qty} ` + `${item.serving_unit} `}
 
-           />
-           <ListItem
-                     title="Calories"
-                     subtitle={`${item.nf_calories} ` }
-           />
-           <ListItem
-                     title="Total Fat"
-                     subtitle ={`${item.nf_total_fat} ` + 'g'}
-           />
-           <ListItem
-                     title="Saturated Fat"
-                     subtitle ={`${item.nf_saturated_fat} `+'g'}
-           />
-           <ListItem
-                     title="Cholesterol"
-                     subtitle={`${item.nf_cholesterol} ` + 'mg'}
-           />
-           <ListItem
-                     title="Sodium"
-                     subtitle ={`${item.nf_sodium} ` + 'mg'}
-           />
-           <ListItem
-                     title="Total Carbohydrate"
-                     subtitle ={`${item.nf_total_carbohydrate} ` + 'g'}
-           />
-           <ListItem
-                     title="Dietary Fiber"
-                     subtitle={`${item.nf_dietary_fiber} ` + 'g' }
-           />
-           <ListItem
-                     title="Total Sugar"
-                     subtitle ={`${item.nf_sugars} ` +'g'}
-           />
-           <ListItem
-                     title="Protein"
-                     subtitle ={`${item.nf_protein} ` + 'g'}
-           />
-           </View>
+
+
+
+               <View>
+
+                   <View style={{ flex: 1, justifyContent: "center", alignItems: "center",paddingVertical: 10}} >
+
+                        <Image
+                          source={{ uri: item.photo.thumb }}
+                          style={{ width: 200, height: 200, flex:1 }}
+                        />
+
+                        <Button
+                          large
+                          raised
+                          rounded= {true}
+                          title= "Add"
+                          titleStyle = {{color:'#000000'}}
+                          iconRight = {true}
+                          buttonStyle = {{backgroundColor:'#FFFFFF'}}
+                          icon = {{name:'ios-add-circle-outline', type:'ionicon'}}
+
+                          onPress={() => {this.props.navigation.state.params.returnData(
+                                                                                        `${item.photo.thumb}`,
+                                                                                        `${item.brand_name}`,
+                                                                                        `${item.food_name}`,
+                                                                                        `${item.nf_calories}`,
+                                                                                        `${item.nf_total_fat}`,
+                                                                                        `${item.nf_saturated_fat}`,
+                                                                                        `${item.nf_cholesterol}`,
+                                                                                        `${item.nf_sodium}`,
+                                                                                        `${item.nf_total_carbohydrate}`,
+                                                                                        `${item.nf_dietary_fiber}`,
+                                                                                        `${item.nf_sugars}`,
+                                                                                        `${item.nf_protein}`
+                                                                                       );
+                                                                                        this.props.navigation.goBack();
+                                                                                       }}
+
+                        />
+
+                   </View>
+
+                   <ListItem
+                             title={`${item.brand_name} ` + `${item.food_name} `}
+                             titleStyle= {{textAlign:'center', fontWeight: 'bold', fontSize: 18,}}
+                             subtitle ={"Serving Size: "+`${item.serving_qty} ` + `${item.serving_unit} `}
+                             subtitleStyle = {{textAlign:'center'}}
+                             bottomDivider
+                   />
+                   <ListItem
+                             title="Calories"
+                             subtitle={`${item.nf_calories} ` }
+                             bottomDivider
+                             rightIcon=<Image
+                                style={{width: 50, height: 50, resizeMode: 'contain'}}
+                                source= {require('../Images/calories.png')} />
+                   />
+                   <ListItem
+                             title="Total Fat"
+                             subtitle ={`${item.nf_total_fat} ` + 'g'}
+                             bottomDivider
+                             rightIcon=<Image
+                                style={{width: 50, height: 50, resizeMode: 'contain'}}
+                                source= {require('../Images/fat.jpg')} />
+                   />
+                   <ListItem
+                             title="Saturated Fat"
+                             subtitle ={`${item.nf_saturated_fat} `+'g'}
+                             bottomDivider
+                             rightIcon=<Image
+                                style={{width: 50, height: 50, resizeMode: 'contain'}}
+                                source= {require('../Images/saturated_fat.png')} />
+                   />
+                   <ListItem
+                             title="Cholesterol"
+                             subtitle={`${item.nf_cholesterol} ` + 'mg'}
+                             bottomDivider
+                             rightIcon=<Image
+                                style={{width: 50, height: 50, resizeMode: 'contain'}}
+                                source= {require('../Images/cholesterol.png')} />
+                   />
+                   <ListItem
+                             title="Sodium"
+                             subtitle ={`${item.nf_sodium} ` + 'mg'}
+                             bottomDivider
+                             rightIcon=<Image
+                                style={{width: 50, height: 50/*, resizeMode: 'contain'*/}}
+                                source= {require('../Images/sodium.png')} />
+                   />
+                   <ListItem
+                             title="Total Carbohydrate"
+                             subtitle ={`${item.nf_total_carbohydrate} ` + 'g'}
+                             bottomDivider
+                             rightIcon=<Image
+                                style={{width: 50, height: 50, resizeMode: 'contain'}}
+                                source= {require('../Images/carbohydrates.png')} />
+                   />
+                   <ListItem
+                             title="Dietary Fiber"
+                             subtitle={`${item.nf_dietary_fiber} ` + 'g' }
+                             bottomDivider
+                             rightIcon=<Image
+                                style={{width: 50, height: 50, resizeMode: 'contain'}}
+                                source= {require('../Images/dietary_fiber.png')} />
+                   />
+                   <ListItem
+                             title="Total Sugar"
+                             subtitle ={`${item.nf_sugars} ` +'g'}
+                             bottomDivider
+                             rightIcon=<Image
+                                style={{width: 50, height: 50, resizeMode: 'contain'}}
+                                source= {require('../Images/sugar.jpg')} />
+                   />
+                   <ListItem
+                             title="Protein"
+                             subtitle ={`${item.nf_protein} ` + 'g'}
+                             bottomDivider
+                             rightIcon=<Image
+                                style={{width: 50, height: 50, resizeMode: 'contain'}}
+                                source= {require('../Images/protein.png')} />
+                   />
+               </View>
            }
+
            keyExtractor={({id}, index) => id}
+
          />
+
        </View>
+
      );
    }
 

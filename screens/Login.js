@@ -65,7 +65,7 @@ class Login extends React.Component {
         <View style={{ flexDirection: 'row', }}>
 
           <Text> Create A </Text>
-          <Text style={{ color: "#ffff66", fontWeight: 'bold' }} onPress={() => navigate('SignUpScreen',{name:'Jane'})}> New Account </Text>
+          <Text style={{ color: "#ffff66", fontWeight: 'bold' }} onPress={() => navigate('SignUpScreen')}> New Account </Text>
 
         </View>
 

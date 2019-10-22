@@ -31,14 +31,15 @@ class App extends React.Component {
   const MainNavigator = createStackNavigator(
 
     {
-        LoginScreen: {screen: Login},
-        SignUpScreen: {screen: SignUp},
-        SearchScreen: {screen: Nutrition},
-        NutritionFactsScreen: {screen: NutritionFacts}
+        LoginScreen: {screen: Login, navigationOptions: { header: null }},
+        SignUpScreen: {screen: SignUp, navigationOptions: { headerTransparent: true }},
+        SearchScreen: {screen: Nutrition, navigationOptions: { header: null }},
+        NutritionFactsScreen: {screen: NutritionFacts, navigationOptions: { headerTransparent: true }}
     },
 
     {
         initialRouteName: 'LoginScreen',
+   //     headerMode: 'none'
     }
 
   );
