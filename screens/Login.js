@@ -20,7 +20,6 @@ class Login extends React.Component {
 
     return (
 
-
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 15, backgroundColor: "#00b3c0" }} >
 
         <View style={{ paddingBottom: 60, flexDirection: 'row' }}>
@@ -32,24 +31,17 @@ class Login extends React.Component {
 
         </View>
 
-
-
         <Input
           placeholder='Username'
           placeholderTextColor='#ffff66'
-          //backgroundColor='#00cccc'
-
         />
 
         <Input
           placeholder='Password'
           placeholderTextColor='#ffff66'
-          //backgroundColor='#00cccc'
         />
 
-
         <View style={{ padding: 15, marginTop: 10 }} >
-
 
           <TouchableHighlight
             style={styles.loginButtonStyle}
@@ -70,15 +62,16 @@ class Login extends React.Component {
         </View>
 
       </View>
+
     );
+
   }
+
 }
 
 
 
 const styles = StyleSheet.create({
-
-
 
    loginButtonStyle:{
         height: 40,
@@ -94,8 +87,6 @@ const styles = StyleSheet.create({
         height: 60,
         justifyContent: "space-evenly"
    }
-
-
 
 });
 
