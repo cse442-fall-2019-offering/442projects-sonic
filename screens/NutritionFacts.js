@@ -78,6 +78,7 @@ class NutritionFacts extends React.Component  {
         <View style={styles.container}>
 
             <FlatList
+                keyExtractor={(item) => {return item.nix_item_id} }
                 data={this.state.dataSource}
                 renderItem={({item}) =>
 
@@ -102,6 +103,7 @@ class NutritionFacts extends React.Component  {
 
                               onPress={() => {this.props.navigation.state.params.returnData(
                                                                                             `${item.photo.thumb}`,
+                                                                                            `${item.nix_item_id}`,
                                                                                             `${item.brand_name}`,
                                                                                             `${item.food_name}`,
                                                                                             `${item.nf_calories}`,
@@ -203,8 +205,6 @@ class NutritionFacts extends React.Component  {
                    </View>
 
                 }
-
-                keyExtractor={({id}, index) => id}
 
             />
 

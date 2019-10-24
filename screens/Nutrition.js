@@ -57,11 +57,12 @@ class Nutrition extends React.Component  {
       });
   }
 
-  returnData(image, brand_name, food_name, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, total_sugar, protein ) {
+  returnData(image, item_id, brand_name, food_name, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, total_sugar, protein ) {
 
        this.array.push({
 
                image: image,
+               item_id: item_id,
                brand_name: brand_name,
                food_name: food_name,
                calories: calories,
@@ -150,7 +151,7 @@ class Nutrition extends React.Component  {
                         data={this.state.arrayHolder}
                         width='100%'
                         extraData={this.state.arrayHolder}
-                        keyExtractor={(index) => index}
+                        keyExtractor={(item) => {return item.item_id} }
                         renderItem={({ item }) =>(
 
                             <ListItem
@@ -158,7 +159,6 @@ class Nutrition extends React.Component  {
                                 title={`${item.brand_name} ` + `${item.food_name} `}
                                 titleStyle= {{fontWeight: 'bold', fontSize: 15,}}
                                 subtitle={'Calories: '+`${item.calories}`}
-                                // subtitleStyle = {{textAlign:'center'}}
                                 bottomDivider
                             />
 
@@ -172,11 +172,12 @@ class Nutrition extends React.Component  {
 
              <FlatList
                  data={this.state.dataSource}
+                 keyExtractor={(item) => {return item.nix_item_id} }
                  renderItem={({ item }) => (
 
                      <ListItem
 
-                         leftAvatar={{ source: { uri:  `${item.image} `} }}
+                         leftAvatar={{ source: { uri: item.image } }}
                          title={`${item.food_name} `}
                          subtitle={'Calories: '+`${item.nf_calories}`}
                          onPress={() => navigate('NutritionFactsScreen',{ itemInformation:`${item.nix_item_id}`, returnData: this.returnData.bind(this) })}
@@ -184,8 +185,6 @@ class Nutrition extends React.Component  {
                      />
 
                  )}
-
-                 keyExtractor={({id}, index) => id}
 
              />
 
