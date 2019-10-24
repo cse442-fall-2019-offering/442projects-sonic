@@ -177,7 +177,7 @@ class Nutrition extends React.Component  {
 
                      <ListItem
 
-                         leftAvatar={{ source: { uri: item.image } }}
+                         leftAvatar={{ source: { uri: item.photo.thumb } }}
                          title={`${item.food_name} `}
                          subtitle={'Calories: '+`${item.nf_calories}`}
                          onPress={() => navigate('NutritionFactsScreen',{ itemInformation:`${item.nix_item_id}`, returnData: this.returnData.bind(this) })}
