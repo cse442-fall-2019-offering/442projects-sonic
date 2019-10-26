@@ -32,9 +32,8 @@ class SignUp extends React.Component {
                showsVerticalScrollIndicator = {false}
                keyboardDismissMode = 'on-drag' >
 
-                   <StatusBar backgroundColor="black" barStyle="light-content" />
-                   <Text style = {styles.SignUpText}> Sign Up </Text>
-
+               <StatusBar backgroundColor="black" barStyle="light-content" />
+               <Text style = {styles.SignUpText}> Sign Up </Text>
 
                    <TextInput style= {styles.InputBox}
                        placeholder='Email Address'
@@ -144,17 +143,14 @@ class SignUp extends React.Component {
                        onPress={() => navigate('SearchScreen')}
                    />
 
-
-
-
-
            </ScrollView>
 
        </LinearGradient>
 
-
     );
+
   }
+
 }
 
 
@@ -180,8 +176,6 @@ const styles = StyleSheet.create({
        color: '#ffffff'
 
    },
-
-
 
 });
 

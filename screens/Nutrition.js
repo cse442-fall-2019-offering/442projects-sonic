@@ -20,15 +20,17 @@ import { Button, ListItem, Icon } from 'react-native-elements';
 
 
 class Nutrition extends React.Component  {
+
   constructor(props){
     super(props);
     this.array = [];
+
     this.state = {
         isLoading: true,
         modalVisible: false,
         arrayHolder: [],
-
     };
+
   }
 
   fetchData(text) {
@@ -44,79 +46,74 @@ class Nutrition extends React.Component  {
       })
       .then(response => response.json())
       .then((responseJson) => {
+
         this.setState({
           dataSource: responseJson.branded,
         });
+
       })
       .catch((error) => {
         console.log(error);
       });
   }
 
-    returnData(image, brand_name, food_name, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, total_sugar, protein ) {
+  returnData(image, item_id, brand_name, food_name, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, total_sugar, protein ) {
+
+       this.array.push({
+
+               image: image,
+               item_id: item_id,
+               brand_name: brand_name,
+               food_name: food_name,
+               calories: calories,
+               total_fat: total_fat,
+               saturated_fat: saturated_fat,
+               cholesterol: cholesterol,
+               sodium: sodium,
+               total_carbohydrate: total_carbohydrate,
+               dietary_fiber: dietary_fiber,
+               total_sugar: total_sugar,
+               protein: protein,
+
+       });
+
+       arrayHolder: this.array
+
+  }
 
 
+  toggleModal(visible) {
 
-        this.array.push({
+       this.setState({ modalVisible: visible });
 
-                image: image,
-                brand_name: brand_name,
-                food_name: food_name,
-                calories: calories,
-                total_fat: total_fat,
-                saturated_fat: saturated_fat,
-                cholesterol: cholesterol,
-                sodium: sodium,
-                total_carbohydrate: total_carbohydrate,
-                dietary_fiber: dietary_fiber,
-                total_sugar: total_sugar,
-                protein: protein,
-        });
+  }
 
 
-        arrayHolder: this.array
+  componentDidMount() {
+
+       this.setState({ arrayHolder: this.array });
+  }
 
 
-
-   }
-
-
-   toggleModal(visible) {
-         this.setState({ modalVisible: visible });
-      }
-
-
-    componentDidMount() {
-
-      this.setState({ arrayHolder: this.array });
-
-
-
-    }
-
-
-   render(){
+  render(){
 
       const {navigate} = this.props.navigation;
 
-
       return(
 
-
         <View style={styles.container}>
-                <Button
-                          large
-                          raised
-                          rounded= {true}
-                          title= "Item History"
-                          titleStyle = {{color:'#000000'}}
-                          iconRight = {true}
-                          buttonStyle = {{backgroundColor:'#FFFFFF'}}
-                          icon = {{name:'ios-add-circle-outline', type:'ionicon'}}
-                          onPress={() => { this.toggleModal(true);}}
 
-                />
-
+             <Button
+                 large
+                 raised
+                 rounded= {true}
+                 title= "Item History"
+                 titleStyle = {{color:'#000000'}}
+                 iconRight = {true}
+                 buttonStyle = {{backgroundColor:'#FFFFFF'}}
+                 icon = {{name:'ios-add-circle-outline', type:'ionicon'}}
+                 onPress={() => { this.toggleModal(true);}}
+             />
 
              <TextInput
                  style={{height: 50, borderColor: 'black', borderWidth: 1}}
@@ -125,49 +122,47 @@ class Nutrition extends React.Component  {
                  onChangeText={(text) => { this.fetchData(text); }}
              />
 
-             <Text> {this.state.brand_name} </Text>
-      <Text> {this.array.length} </Text>
-      <Text> {this.state.arrayHolder.length} </Text>
-
-
              <Modal
                animationType = {"slide"}
                transparent = {false}
                visible = {this.state.modalVisible}>
 
                 <View>
-                                  <TouchableHighlight onPress = {() => {
-                                     this.toggleModal(!this.state.modalVisible)}}>
 
-                                     <Text style = {styles.text}>Close Modal</Text>
-                                  </TouchableHighlight>
+                    <View style={styles.title}>
 
-             <FlatList
+                        <Button
+                            large
+                            raised
+                            rounded= {true}
+                            title= "Close"
+                            titleStyle = {{color:'#000000'}}
+                            iconRight = {true}
+                            buttonStyle = {{backgroundColor:'#FFFFFF'}}
+                            icon = {{name:'ios-close-circle-outline', type:'ionicon'}}
+                            onPress= {() => { this.toggleModal(!this.state.modalVisible)} }
+                        />
 
-                      data={this.state.arrayHolder}
+                    </View>
 
-                      width='100%'
-
-                      extraData={this.state.arrayHolder}
-
-                      keyExtractor={(index) => index}
-
-                      renderItem={({ item }) =>(
-
-
+                    <FlatList
+                        data={this.state.arrayHolder}
+                        width='100%'
+                        extraData={this.state.arrayHolder}
+                        keyExtractor={(item) => {return item.item_id} }
+                        renderItem={({ item }) =>(
 
                             <ListItem
-                                leftAvatar = {{ uri: item.image }}
+                                leftAvatar= {{ source: {uri: item.image} }}
                                 title={`${item.brand_name} ` + `${item.food_name} `}
                                 titleStyle= {{fontWeight: 'bold', fontSize: 15,}}
                                 subtitle={'Calories: '+`${item.calories}`}
-                                // subtitleStyle = {{textAlign:'center'}}
                                 bottomDivider
                             />
 
-                      )}
+                        )}
 
-             />
+                    />
 
                 </View>
 
@@ -175,22 +170,19 @@ class Nutrition extends React.Component  {
 
              <FlatList
                  data={this.state.dataSource}
+                 keyExtractor={(item) => {return item.nix_item_id} }
                  renderItem={({ item }) => (
 
-                 <ListItem
+                     <ListItem
 
-                     leftAvatar={{ source: { uri:  `${item.image} `} }}
-                     title={`${item.food_name} `}
-                     subtitle={'Calories: '+`${item.nf_calories}`}
-                     onPress={() => navigate('NutritionFactsScreen',{
-                                                                     itemInformation:`${item.nix_item_id}`,
-                                                                     returnData: this.returnData.bind(this)
-                                                                                                           })}
-                  />
+                         leftAvatar={{ source: { uri: item.photo.thumb } }}
+                         title={`${item.food_name} `}
+                         subtitle={'Calories: '+`${item.nf_calories}`}
+                         onPress={() => navigate('NutritionFactsScreen',{ itemInformation:`${item.nix_item_id}`, returnData: this.returnData.bind(this) })}
+                         bottomDivider
+                     />
 
-                  )}
-
-                  keyExtractor={({id}, index) => id}
+                 )}
 
              />
 
@@ -198,8 +190,10 @@ class Nutrition extends React.Component  {
 
 
       );
-    }
+
   }
+
+}
 
 
 
@@ -230,4 +224,5 @@ class Nutrition extends React.Component  {
       opacity: 0.8,
     },
   });
-  export default Nutrition;
+
+export default Nutrition;
