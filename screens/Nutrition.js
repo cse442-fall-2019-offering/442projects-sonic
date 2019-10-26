@@ -1,5 +1,7 @@
 import React from 'react';
 import {
+  Animated,
+  Dimensions,
   SafeAreaView,
   StyleSheet,
   ScrollView,
@@ -16,6 +18,7 @@ import {
   Modal
 } from 'react-native';
 import { Button, ListItem, Icon } from 'react-native-elements';
+import { SwipeListView } from 'react-native-swipe-list-view';
 
 
 
@@ -145,7 +148,7 @@ class Nutrition extends React.Component  {
 
                     </View>
 
-                    <FlatList
+                    <SwipeListView
                         data={this.state.arrayHolder}
                         width='100%'
                         extraData={this.state.arrayHolder}
@@ -161,7 +164,17 @@ class Nutrition extends React.Component  {
                             />
 
                         )}
+                         renderHiddenItem={ (item, rowMap) => (
 
+                            <View style={styles.rowBack}>
+                                <Text>Left</Text>
+                                <Text>Right</Text>
+                            </View>
+
+                         )}
+
+                         leftOpenValue={75}
+                         rightOpenValue={-75}
                     />
 
                 </View>
@@ -203,18 +216,6 @@ class Nutrition extends React.Component  {
       paddingTop: 24,
       backgroundColor: 'white',
     },
-    content: {
-      paddingBottom: 300,
-    },
-    card1: {
-      paddingVertical: 16,
-    },
-    card2: {
-      padding: 16,
-    },
-    input: {
-      marginTop: 4,
-    },
     title: {
       paddingBottom: 16,
       textAlign: 'center',
@@ -222,6 +223,79 @@ class Nutrition extends React.Component  {
       fontSize: 20,
       fontWeight: 'bold',
       opacity: 0.8,
+    },
+    standalone: {
+        marginTop: 30,
+        marginBottom: 30,
+    },
+    standaloneRowFront: {
+        alignItems: 'center',
+        backgroundColor: '#CCC',
+        justifyContent: 'center',
+        height: 50,
+    },
+    standaloneRowBack: {
+        alignItems: 'center',
+        backgroundColor: '#8BC645',
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 15,
+    },
+    backTextWhite: {
+        color: '#FFF',
+    },
+    rowFront: {
+        alignItems: 'center',
+        backgroundColor: '#CCC',
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
+        justifyContent: 'center',
+        height: 50,
+    },
+    rowBack: {
+        alignItems: 'center',
+        backgroundColor: '#DDD',
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingLeft: 15,
+    },
+    backRightBtn: {
+        alignItems: 'center',
+        bottom: 0,
+        justifyContent: 'center',
+        position: 'absolute',
+        top: 0,
+        width: 75,
+    },
+    backRightBtnLeft: {
+        backgroundColor: 'blue',
+        right: 75,
+    },
+    backRightBtnRight: {
+        backgroundColor: 'red',
+        right: 0,
+    },
+    controls: {
+        alignItems: 'center',
+        marginBottom: 30,
+    },
+    switchContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginBottom: 5,
+    },
+    switch: {
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: 'black',
+        paddingVertical: 10,
+        width: Dimensions.get('window').width / 4,
+    },
+    trash: {
+        height: 25,
+        width: 25,
     },
   });
 
