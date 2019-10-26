@@ -95,8 +95,6 @@ class Nutrition extends React.Component  {
   }
 
 
-
-
   render(){
 
       const {navigate} = this.props.navigation;
@@ -181,7 +179,7 @@ class Nutrition extends React.Component  {
                          title={`${item.food_name} `}
                          subtitle={'Calories: '+`${item.nf_calories}`}
                          onPress={() => navigate('NutritionFactsScreen',{ itemInformation:`${item.nix_item_id}`, returnData: this.returnData.bind(this) })}
-
+                         bottomDivider
                      />
 
                  )}
