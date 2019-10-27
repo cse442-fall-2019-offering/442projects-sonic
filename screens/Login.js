@@ -4,15 +4,27 @@ import {
     Text,
     Button,
     Image,
+    Alert,
     TouchableHighlight,
-    StyleSheet
+    StyleSheet,
 } from 'react-native';
+import Modal from "react-native-modal";
 import { Input } from 'react-native-elements';
+import LinearGradient from 'react-native-linear-gradient';
+
 
 
 
 
 class Login extends React.Component {
+
+  state = {
+    isModalVisible: false
+  };
+
+  toggleModal = () => {
+    this.setState({ isModalVisible: !this.state.isModalVisible });
+  };
 
   render() {
 
@@ -20,28 +32,35 @@ class Login extends React.Component {
 
     return (
 
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 15, backgroundColor: "#00b3c0" }} >
-
+      <LinearGradient colors= {['#97E1BE','#E26BF7']} style = {{flex:1,justifyContent:"center",alignItems: "center",padding: 15}}>
+  
         <View style={{ paddingBottom: 60, flexDirection: 'row' }}>
 
-          <Image
-            style={styles.imageStyle}
-            source={require('../Images/health.png')}
-          />
+          <Text style = {{fontSize: 40,color: "white",fontWeight: "bold",letterSpacing:2.5}}>
+            NUTRITION
+              GO
+          </Text>
 
         </View>
 
+
+
         <Input
           placeholder='Username'
-          placeholderTextColor='#ffff66'
+          placeholderTextColor='#FFFFFF'
+          //backgroundColor='#00cccc'
+
         />
 
         <Input
           placeholder='Password'
-          placeholderTextColor='#ffff66'
+          placeholderTextColor='#FFFFFF'
+          //backgroundColor='#00cccc'
         />
 
-        <View style={{ padding: 15, marginTop: 10 }} >
+
+        <View style={{ padding: 15, marginTop: 50 }} >
+
 
           <TouchableHighlight
             style={styles.loginButtonStyle}
@@ -55,31 +74,56 @@ class Login extends React.Component {
         </View>
 
         <View style={{ flexDirection: 'row', }}>
+        <TouchableHighlight
+            style={styles.loginButtonStyle}
+            onPress={() => navigate('SignUpScreen')}
+          >
 
-          <Text> Create A </Text>
-          <Text style={{ color: "#ffff66", fontWeight: 'bold' }} onPress={() => navigate('SignUpScreen')}> New Account </Text>
+            <Text style = {{fontWeight : 'bold'}}> SIGN UP </Text>
+
+          </TouchableHighlight>
+
+          
 
         </View>
 
-      </View>
+        <View style={{ padding: 15, marginTop: 50 }} >
 
+        <Text style = {{color:'white'}} onPress={this.toggleModal}> Privacy Policy </Text>
+        <Modal backdropColor={'white'} isVisible={this.state.isModalVisible}>
+          <View style={{ flex: 1 }}>
+            <Text>If you choose to use our Service, then you agree to the collection and use of information in relation with this policy. The Personal Information that we collect are used for providing and improving the Service. We will not use or share your information with anyone except as described in this Privacy Policy.
+
+The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at Website URL, unless otherwise defined in this Privacy Policy. </Text>
+            <Button title="Hide modal" onPress={this.toggleModal} />
+          </View>
+        </Modal>
+ 
+
+        
+
+        </View>
+
+
+      </LinearGradient>
     );
-
   }
-
 }
 
 
 
 const styles = StyleSheet.create({
 
+
+
    loginButtonStyle:{
-        height: 40,
-        width: 150,
-        borderRadius: 3,
-        alignItems: 'center',
-        backgroundColor: '#ffff66',
-        padding: 10
+     backgroundColor: 'rgba(255, 255, 255, 0.9)',
+     height: 50,
+     width:300,
+     marginHorizontal:20,
+     borderRadius:35,
+     alignItems:'center',
+     justifyContent:'center',
    },
 
    imageStyle: {
@@ -87,6 +131,8 @@ const styles = StyleSheet.create({
         height: 60,
         justifyContent: "space-evenly"
    }
+
+
 
 });
 
