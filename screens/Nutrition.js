@@ -18,7 +18,7 @@ import {
   Modal
 } from 'react-native';
 import { Button, ListItem, Icon } from 'react-native-elements';
-import { SwipeListView } from 'react-native-swipe-list-view';
+import { SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
 
 
 
@@ -130,6 +130,7 @@ class Nutrition extends React.Component  {
                transparent = {false}
                visible = {this.state.modalVisible}>
 
+
                 <View>
 
                     <View style={styles.title}>
@@ -166,9 +167,9 @@ class Nutrition extends React.Component  {
                         )}
                          renderHiddenItem={ (item, rowMap) => (
 
-                            <View style={styles.rowBack}>
-                                <Text>Left</Text>
-                                <Text>Right</Text>
+                            <View style={styles.standaloneRowBack}>
+                                <Text style={styles.backTextWhite}>Left</Text>
+                                <Text style={styles.backTextWhite}>Right</Text>
                             </View>
 
                          )}
@@ -300,3 +301,4 @@ class Nutrition extends React.Component  {
   });
 
 export default Nutrition;
+
