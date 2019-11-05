@@ -123,7 +123,7 @@ arrayHolder: this.array
                                                                                             `${item.nf_dietary_fiber}`,
                                                                                             `${item.nf_sugars}`,
                                                                                             `${item.nf_protein}`);
-                                                                                            this.props.navigation.navigate('HomeScreen', { calories: `${item.nf_calories}`});
+                                                                                            this.props.navigation.navigate('Home', {calories: `${item.nf_calories}`,protein:`${item.nf_protein}`,fat:`${item.nf_total_fat}`,carbs:`${item.nf_total_carbohydrate}`});
                                                                                             this.props.navigation.goBack();
                                                                                           
                                             
