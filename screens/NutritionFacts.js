@@ -12,6 +12,7 @@ import {
   ActivityIndicator,
   FlatList,
   Input,
+  Picker,
   TouchableHighlight
 } from 'react-native';
 import { SearchBar, ListItem, Icon, Button } from 'react-native-elements';
@@ -26,21 +27,21 @@ class NutritionFacts extends React.Component  {
 
     this.state = {
         isLoading: true,
-        itemInfo: this.props.navigation.state.params.itemInformation,
+        itemInfo: this.props.navigation.state.params.itemInformation,       
     };
 
   }
 
 
   componentDidMount(){
-    let foods = [];
+
 
      return fetch(
         'https://trackapi.nutritionix.com/v2/search/item?nix_item_id=' + `${this.state.itemInfo}`,
         {
                 headers:{
-                  'x-app-id' : '88d8c8cc',
-                  'x-app-key': 'd978303c8f19bf2a431e703f174bfbe3'
+                  'x-app-id' : '0eaa9d35',
+                  'x-app-key': '1f817bc9e71ffe3bd9a3db706d8ff92a'
                 }
         })
        .then((response) => response.json())
@@ -56,6 +57,8 @@ class NutritionFacts extends React.Component  {
          console.error(error);
        });
   }
+
+  state = {choosenLabel: '', choosenindex: ''};
 
   render(){
 
@@ -120,7 +123,9 @@ class NutritionFacts extends React.Component  {
 
                             />
 
+
                        </View>
+
 
                        <ListItem
                                  title={`${item.brand_name} ` + `${item.food_name} `}
@@ -129,6 +134,23 @@ class NutritionFacts extends React.Component  {
                                  subtitleStyle = {{textAlign:'center'}}
                                  bottomDivider
                        />
+
+                        <View style = {styles.containerOne} >
+                              <Text>Serving</Text>    
+                              <Picker
+                                style = {{color:'black', width: '30%'}}
+                                selectedValue={this.state.choosenLabel}
+                                onValueChange={(itemValue, itemIndex) =>
+                                this.setState({ choosenLabel: itemValue, choosenindex: itemIndex })
+                              }>
+
+                                 <Picker.Item label ='1' value = '1' />
+                                 <Picker.Item label ='2' value = '2' />
+                                 <Picker.Item label ='3' value = '3' />
+                                 <Picker.Item label ='4' value = '4' />
+                              </Picker>
+                        </View>    
+
                        <ListItem
                                  title="Calories"
                                  subtitle={`${item.nf_calories} ` }
@@ -224,6 +246,21 @@ class NutritionFacts extends React.Component  {
       paddingTop: 24,
       backgroundColor: 'white',
     },
+
+    containerOne: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#F5FCFF'
+    },
+
+    rowContainer: {
+      height: 64,
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingLeft: 16,
+    },
+  
 
     content: {
       paddingBottom: 300,

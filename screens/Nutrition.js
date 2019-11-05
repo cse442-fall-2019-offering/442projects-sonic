@@ -46,8 +46,8 @@ class Nutrition extends React.Component  {
     fetch(url + text,
       {
         headers:{
-          'x-app-id' : '88d8c8cc',
-          'x-app-key': 'd978303c8f19bf2a431e703f174bfbe3'
+          'x-app-id' : '0eaa9d35',
+          'x-app-key': '1f817bc9e71ffe3bd9a3db706d8ff92a'
         }
       })
       .then(response => response.json())
