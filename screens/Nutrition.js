@@ -15,7 +15,8 @@ import {
   FlatList,
   Input,
   TouchableHighlight,
-  Modal
+  Modal,
+  TouchableOpacity
 } from 'react-native';
 import { Button, ListItem, Icon } from 'react-native-elements';
 import { SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
@@ -28,6 +29,7 @@ class Nutrition extends React.Component  {
     super(props);
     this.array = [];
 
+
     this.state = {
         isLoading: true,
         modalVisible: false,
@@ -36,6 +38,7 @@ class Nutrition extends React.Component  {
 
   }
 
+
   fetchData(text) {
     this.setState({ text });
     const url = 'https://trackapi.nutritionix.com/v2/search/instant?query=';
@@ -43,8 +46,8 @@ class Nutrition extends React.Component  {
     fetch(url + text,
       {
         headers:{
-          'x-app-id' : '979e48c8',
-          'x-app-key': 'e7cc162c38e1ee157bcad82667783fef'
+          'x-app-id' : '88d8c8cc',
+          'x-app-key': 'd978303c8f19bf2a431e703f174bfbe3'
         }
       })
       .then(response => response.json())
@@ -59,6 +62,7 @@ class Nutrition extends React.Component  {
         console.log(error);
       });
   }
+
 
   returnData(image, item_id, brand_name, food_name, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, total_sugar, protein ) {
 
@@ -82,6 +86,7 @@ class Nutrition extends React.Component  {
 
        arrayHolder: this.array
 
+
   }
 
 
@@ -95,16 +100,28 @@ class Nutrition extends React.Component  {
   componentDidMount() {
 
        this.setState({ arrayHolder: this.array });
+
+  }
+
+
+  deleteRow(index) {
+
+      this.array.splice(index, 1);
+      this.setState({ arrayHolder: this.array });
+
   }
 
 
   render(){
 
-      const {navigate} = this.props.navigation;
+     const {navigate} = this.props.navigation;
 
-      return(
+
+     return(
+
 
         <View style={styles.container}>
+
 
              <Button
                  large
@@ -124,6 +141,7 @@ class Nutrition extends React.Component  {
                  underlineColorAndroid = "#000000"
                  onChangeText={(text) => { this.fetchData(text); }}
              />
+
 
              <Modal
                animationType = {"slide"}
@@ -150,32 +168,46 @@ class Nutrition extends React.Component  {
                     </View>
 
                     <SwipeListView
-                        data={this.state.arrayHolder}
+                        data={this.array}
                         width='100%'
-                        extraData={this.state.arrayHolder}
-                        keyExtractor={(item) => {return item.item_id} }
-                        renderItem={({ item }) =>(
+                        extraData={this.array}
+                        keyExtractor={(item,index) => {return `${index}` } }
+                        renderItem={({item, index}) =>(
 
-                            <ListItem
-                                leftAvatar= {{ source: {uri: item.image} }}
-                                title={`${item.brand_name} ` + `${item.food_name} `}
-                                titleStyle= {{fontWeight: 'bold', fontSize: 15,}}
-                                subtitle={'Calories: '+`${item.calories}`}
-                                bottomDivider
-                            />
+                            <Animated.View>
+
+                                    <ListItem
+                                        leftAvatar= {{ source: {uri: item.image} }}
+                                        title={`${item.brand_name} ` + `${item.food_name} `}
+                                        titleStyle= {{fontWeight: 'bold', fontSize: 15}}
+                                        subtitle={'Calories: '+`${item.calories}`}
+                                        bottomDivider
+                                    />
+
+                            </Animated.View>
 
                         )}
-                         renderHiddenItem={ (item, rowMap) => (
+
+                        renderHiddenItem={ ({item,index}) => (
 
                             <View style={styles.standaloneRowBack}>
-                                <Text style={styles.backTextWhite}>Left</Text>
-                                <Text style={styles.backTextWhite}>Right</Text>
+
+                                 <TouchableOpacity s
+                                        style={[ styles.backRightBtn, styles.backRightBtnRight]}
+                                        onPress={() => this.deleteRow( index )}
+                                 >
+
+                                    <Text style={styles.backTextWhite}> Delete </Text>
+
+                                </TouchableOpacity>
+
                             </View>
 
-                         )}
+                        )}
 
-                         leftOpenValue={75}
-                         rightOpenValue={-75}
+                        disableRightSwipe = {true}
+                        rightOpenValue={-75}
+
                     />
 
                 </View>
@@ -190,10 +222,11 @@ class Nutrition extends React.Component  {
                      <ListItem
 
                          leftAvatar={{ source: { uri: item.photo.thumb } }}
-                         title={`${item.food_name} `}
+                         title={`${item.brand_name} `+`${item.food_name} `}
                          subtitle={'Calories: '+`${item.nf_calories}`}
                          onPress={() => navigate('NutritionFactsScreen',{ itemInformation:`${item.nix_item_id}`, returnData: this.returnData.bind(this) })}
                          bottomDivider
+
                      />
 
                  )}
@@ -237,7 +270,8 @@ class Nutrition extends React.Component  {
     },
     standaloneRowBack: {
         alignItems: 'center',
-        backgroundColor: '#8BC645',
+        backgroundColor: '#d42c2c',
+        //backgroundColor: '#8BC645',
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
