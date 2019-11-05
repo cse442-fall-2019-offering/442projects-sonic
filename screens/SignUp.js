@@ -26,7 +26,7 @@ class SignUp extends React.Component {
 
     return (
 
-       <LinearGradient colors= {['#61045f','#20011f']} style = {styles.LinearGradientView}>
+       <LinearGradient colors= {['#97E1BE','#E26BF7']} style = {styles.LinearGradientView}>
 
            <ScrollView
                showsVerticalScrollIndicator = {false}
@@ -37,51 +37,51 @@ class SignUp extends React.Component {
 
                    <TextInput style= {styles.InputBox}
                        placeholder='Email Address'
-                       placeholderTextColor='#ffffff'
+                       placeholderTextColor='#000000'
                        underlineColorAndroid= 'transparent'
                    />
 
                    <TextInput style= {styles.InputBox}
                        placeholder='Full Name'
-                       placeholderTextColor='#ffffff'
+                       placeholderTextColor='#000000'
                        underlineColorAndroid= 'transparent'
                    />
 
                    <TextInput style= {styles.InputBox}
                        placeholder='Password'
-                       placeholderTextColor='#ffffff'
+                       placeholderTextColor='#000000'
                        underlineColorAndroid= 'transparent'
                    />
 
                    <TextInput style= {styles.InputBox}
                        placeholder='Re-enter password'
-                       placeholderTextColor='#ffffff'
+                       placeholderTextColor='#000000'
                        underlineColorAndroid= 'transparent'
                    />
 
                    <TextInput style= {styles.InputBox}
                        placeholder='Date of Birth'
-                       placeholderTextColor='#ffffff'
+                       placeholderTextColor='#000000'
                        underlineColorAndroid= 'transparent'
                    />
 
                    <TextInput style= {styles.InputBox}
                        placeholder='Location'
-                       placeholderTextColor='#ffffff'
+                       placeholderTextColor='#000000'
                        underlineColorAndroid= 'transparent'
                    />
 
                    <TextInput style= {styles.InputBox}
                        placeholder='Phone Number'
-                       placeholderTextColor='#ffffff'
+                       placeholderTextColor='#000000'
                        underlineColorAndroid= 'transparent'
                    />
 
                    <View>
 
-                        <Text style={{color:'white'}}>Sex</Text>
+                        <Text style={{color:'black'}}>Sex</Text>
 
-                        <Picker style = {{color:'white'}}
+                        <Picker style = {{color:'black'}}
                             selectedValue={this.state.choosenLabel}
                             onValueChange={(itemValue, itemIndex) =>
                             this.setState({choosenLabel: itemValue, choosenindex: itemIndex })
@@ -97,28 +97,28 @@ class SignUp extends React.Component {
 
                    <TextInput style= {styles.InputBox}
                        placeholder='Height'
-                       placeholderTextColor='#ffffff'
+                       placeholderTextColor='#000000'
                        underlineColorAndroid= 'transparent'
                    />
 
                    <TextInput style= {styles.InputBox}
                        placeholder='Current Weight'
-                       placeholderTextColor='#ffffff'
+                       placeholderTextColor='#000000'
                        underlineColorAndroid= 'transparent'
                    />
 
                    <TextInput style= {styles.InputBox}
                        placeholder='Goal Weight'
-                       placeholderTextColor='#ffffff'
+                       placeholderTextColor='#000000'
                        underlineColorAndroid= 'transparent'
                    />
 
 
                    <View>
 
-                        <Text style={{color:'white'}}>Activity Level</Text>
+                        <Text style={{color:'black'}}>Activity Level</Text>
 
-                        <Picker style = {{color:'white'}}
+                        <Picker style = {{color:'black'}}
                             selectedValue={this.state.choosenLabel}
                             onValueChange={(itemValue, itemIndex) =>
                             this.setState({ choosenLabel: itemValue, choosenindex: itemIndex })
@@ -140,7 +140,7 @@ class SignUp extends React.Component {
                        rounded= {true}
                        title= "Let's Get Started!"
                        icon = {{name:'ios-cloud-done', type:'ionicon'}}
-                       onPress={() => navigate('SearchScreen')}
+                       onPress={() => navigate('HomeScreen')}
                    />
 
            </ScrollView>
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
 
    InputBox:{
        width: 300,
-       backgroundColor: '#0C0032',
+       backgroundColor: '#ffffff',
        borderRadius: 25,
        paddingHorizontal: 16,
        marginVertical: 10,

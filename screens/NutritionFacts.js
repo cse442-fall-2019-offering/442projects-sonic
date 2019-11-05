@@ -23,12 +23,20 @@ class NutritionFacts extends React.Component  {
 
   constructor(props){
     super(props);
+    this.array = [];
 
     this.state = {
         isLoading: true,
         itemInfo: this.props.navigation.state.params.itemInformation,
     };
 
+  }
+  returnCalories(calories){
+    this.array.push({
+      calories: calories,
+});
+
+arrayHolder: this.array
   }
 
 
@@ -115,7 +123,10 @@ class NutritionFacts extends React.Component  {
                                                                                             `${item.nf_dietary_fiber}`,
                                                                                             `${item.nf_sugars}`,
                                                                                             `${item.nf_protein}`);
+                                                                                            this.props.navigation.navigate('HomeScreen', { calories: `${item.nf_calories}`});
                                                                                             this.props.navigation.goBack();
+                                                                                          
+                                            
                               }}
 
                             />

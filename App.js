@@ -1,6 +1,7 @@
 import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
 import {
     View,
     Text,
@@ -13,6 +14,8 @@ import SignUp from './screens/SignUp'
 import Nutrition from './screens/Nutrition'
 import Login from './screens/Login'
 import NutritionFacts from './screens/NutritionFacts'
+import Home from './screens/Home'
+import Profile from './screens/Profile'
 
 
 
@@ -33,16 +36,24 @@ class App extends React.Component {
     {
         LoginScreen: {screen: Login, navigationOptions: { header: null }},
         SignUpScreen: {screen: SignUp, navigationOptions: { headerTransparent: true }},
+        HomeScreen: {screen: Home,navigationOptions:{header:null}},
         SearchScreen: {screen: Nutrition, navigationOptions: { header: null }},
-        NutritionFactsScreen: {screen: NutritionFacts, navigationOptions: { headerTransparent: true }}
+        NutritionFactsScreen: {screen: NutritionFacts, navigationOptions: { headerTransparent: true }},
+        ProfileScreen:{screen: Profile , navigationOptions:{header:null}}
     },
 
     {
         initialRouteName: 'LoginScreen',
    //     headerMode: 'none'
     }
+  
 
   );
+
+  
+
+  
+  
 
   const Application = createAppContainer(MainNavigator);
 

@@ -16,6 +16,7 @@ import {
   Modal
 } from 'react-native';
 import { Button, ListItem, Icon } from 'react-native-elements';
+import LinearGradient from 'react-native-linear-gradient';
 
 
 
@@ -100,9 +101,7 @@ class Nutrition extends React.Component  {
       const {navigate} = this.props.navigation;
 
       return(
-
-        <View style={styles.container}>
-
+        <LinearGradient colors= {['#97E1BE','#E26BF7']} style = {{flex:1}}>
              <Button
                  large
                  raised
@@ -121,6 +120,7 @@ class Nutrition extends React.Component  {
                  underlineColorAndroid = "#000000"
                  onChangeText={(text) => { this.fetchData(text); }}
              />
+            
 
              <Modal
                animationType = {"slide"}
@@ -186,7 +186,7 @@ class Nutrition extends React.Component  {
 
              />
 
-        </View>
+          </LinearGradient>
 
 
       );
@@ -216,7 +216,7 @@ class Nutrition extends React.Component  {
       marginTop: 4,
     },
     title: {
-      paddingBottom: 16,
+      paddingBottom: 10,
       textAlign: 'center',
       color: '#404d5b',
       fontSize: 20,
