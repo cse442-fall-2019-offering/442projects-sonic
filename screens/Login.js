@@ -41,6 +41,7 @@ class Login extends React.Component {
   }
 
   user_login(email_, password_) {
+    this.state.isLoggedIn = true;
     var good = firebase.auth().signInWithEmailAndPassword(email_, password_).catch(function (error) {
       // Handle Errors here.
       var errorCode = error.code;
@@ -52,9 +53,9 @@ class Login extends React.Component {
       }
       console.log(error);
       alert('here');
-
+      this.state.isLoggedIn = false;
     });
-    this.state.isLoggedIn = true;
+    
   }
 
 
