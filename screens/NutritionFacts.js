@@ -28,6 +28,7 @@ class NutritionFacts extends React.Component  {
     this.state = {
         isLoading: true,
         itemInfo: this.props.navigation.state.params.itemInformation,
+        calorieCounter: 0
     };
 
   }

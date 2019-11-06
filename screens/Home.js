@@ -44,28 +44,41 @@ class Home extends Component {
         <View style={styles.background}>
 
 <Text style={styles.titleStyle}> {date}</Text>
-
+<View style = {{flex:1,flexDirection:'row'}}>
 <View style = {styles.square}>
-<Text style = {styles.bold}> Total Calories </Text>
+<Text style = {styles.bold}>TOTAL CALORIES </Text>
 
 <Text style = {styles.totalCalories}> {calories} calories </Text>
+
 </View>
 
-<Text style ={styles.bold}> Total Protein</Text>
+<View style = { styles.square}>
 
+<Text style ={styles.bold}>TOTAL PROTEIN</Text>
 <Text style = {styles.totalProtein}> {protein}g </Text>
+</View>
 
-<Text style = {styles.bold}> Total Fat </Text>
+
+</View>
+
+
+
+<View style = {{flex:1, flexDirection:'row'}}>
+<View style = {styles.square}>
+<Text style = {styles.bold}> TOTAL   FATS </Text>
 
 <Text style ={styles.totalFat}> {fat}g</Text>
+</View>
 
-<Text style = {styles.bold}> Total Carbs </Text>
+<View style = {styles.square}>
+<Text style = {styles.bold}> TOTAL CARBS </Text>
 
 <Text style = {styles.totalCarbs}> {carbs}g </Text>
 </View>
-
+</View>
 </View>
        
+</View>
     );
   }
 }
@@ -109,7 +122,7 @@ const styles = StyleSheet.create({
   },
     background: {
         flex:0.5,
-        backgroundColor:'#C1C8E4'
+        backgroundColor:'#f0f4fa'
       },
       gradient: {
         height: '100%',
@@ -126,33 +139,40 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontFamily: 'Roboto-Regular',
         color:'#5680E9',
-        marginTop:10
+        marginTop:10,
+        textAlign:'center'
       },
       totalProtein :{
         fontSize: 15,
         fontFamily: 'Roboto-Regular',
         color:'#84CEEB',
-        marginTop:10
+        marginTop:10,
+        textAlign: 'center'
       },
       totalFat :{
         fontSize: 15,
         fontFamily: 'Roboto-Regular',
         color:'#5AB9EA',
-        marginTop:10
+        marginTop:10,
+        textAlign:'center'
       },
       totalCarbs:{
         fontSize: 15,
         fontFamily: 'Roboto-Regular',
-        color:'#C1C8E4',
-        marginTop:10
+        color:'black',
+        marginTop:10,
+        textAlign:'center'
       },
       bold :{
         fontSize: 20,
         fontFamily: 'Roboto-Bold',
-        color:'black',
-        marginTop:10
+        color:'gray',
+        marginTop:10,
+        textAlign:'center'
       },
       square:{
+          marginTop:10,
+          marginLeft: 50,
           width: 120,
           height: 120,
           backgroundColor: '#FFFFFF'
