@@ -9,8 +9,9 @@ import { Button, Icon } from 'react-native-elements';
 import * as firebase from 'firebase';
 
 class Profile extends React.Component {
+    static accountAlreadyCreated = false;
     constructor(props){
-        super(props)
+        super(props);
         this.state = {
             choosenLabel: '',
             choosenindex: '',
@@ -21,54 +22,15 @@ class Profile extends React.Component {
             age: '',
             location: '',
             phoneNumber: '',
-            sex: '',
+            sex: 'Male',
             height: '',
             currentWeight: '',
             goalWeight: '',
             activity_level: 1.2,
             tde: 0
         };
-        this.good = false;
     }
     
-    
-    
-
-    // componentWillMount() {
-
-    //     // To Configure react native app with cloud of Google Firebase database !
-    //     var config = {
-    //         apiKey: "AIzaSyAhQDAzgnHPymQkc1BNeB0sPKJTvPfZ20c",
-    //         authDomain: "nutrition-go.firebaseapp.com",
-    //         databaseURL: "https://nutrition-go.firebaseio.com",
-    //         projectId: "nutrition-go",
-    //         storageBucket: "nutrition-go.appspot.com",
-    //         messagingSenderId: "353598024085",
-    //         appId: "1:353598024085:web:b3e7f5645a5705a4186e9c",
-    //         measurementId: "G-CLRT6JSHLW"
-    //     };
-
-    //     //firebase.initializeApp(config);
-
-    // }
-
-    // setUserData() {
-    //     firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
-    //         email: this.state.email,
-    //         fullName: this.state.fullName,
-    //         password: this.state.password,
-    //         age: Number(this.state.age),
-    //         location: this.state.location,
-    //         phoneNumber: this.state.phoneNumber,
-    //         sex: this.state.sex,
-    //         height: Number(this.state.height),
-    //         currentWeight: Number(this.state.currentWeight),
-    //         goalWeight: Number(this.state.goalWeight),
-    //         foodArray: [],
-    //         tde: Number(this.state.tde),
-    //     });
-    // }
-
 
     authinticate(email_, fullName_,  password_, passwordReEnter_ , age_, location_, phoneNumber_, 
         sex_, height_, currentWeight_, goalWeight_, tde_) {
@@ -90,8 +52,6 @@ class Profile extends React.Component {
                 if (user) {
                     id = user.uid;
                     if (id != null) {
-                        this.good = true;
-                        
                         firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
                             email: email_,
                             fullName: fullName_,
@@ -103,9 +63,13 @@ class Profile extends React.Component {
                             height: Number(height_),
                             currentWeight: Number(currentWeight_),
                             goalWeight: Number(goalWeight_),
-                            foodArray: [],
+                            foodArray: [FoodContent= {
+                                title: 'sandwitch',
+                                calories: 220,
+                            }],
                             tde: Number(tde_),
                         });
+                        this.accountAlreadyCreated = true;
                     }else{
                         alert.alert("null id");
                     }
@@ -114,10 +78,6 @@ class Profile extends React.Component {
                     alert.alert("not ready");
                 }
               });
-            
-            
-
-            // Alert.alert('good! --' + email_ + ', ' + password_ + ', ' + passwordReEnter_);
 
         } else {
             Alert.alert('bad! --' + email_ + ', ' + password_ + ', ' + passwordReEnter_);
@@ -194,7 +154,7 @@ class Profile extends React.Component {
                             selectedValue={this.state.sex}
                             onValueChange={(itemValue, itemIndex) =>
                                 //this.state.sex = itemValue
-                                this.setState({ sex : itemValue})
+                                this.setState({ sex: itemValue})
                             }>
 
                             <Picker.Item label='Male' value='Male' />
@@ -232,9 +192,7 @@ class Profile extends React.Component {
 
                         <Picker style={{ color: 'white', paddingBottom: 10 }}
                             selectedValue={this.state.activity_level}
-                            onValueChange={(itemValue, itemIndex) =>
-                                this.setState({ choosenLabel: itemValue, choosenindex: itemIndex, activity_level: itemValue })
-                            }>
+                            onValueChange={(itemValue, itemIndex) =>this.setState({activity_level: itemValue })}>
 
                             <Picker.Item label='Sedentary (little to no exercise)' value='1.2' />
                             <Picker.Item label='Lightly Active (lightly exercise/sports 1-3 days/week)' value='1.375' />
@@ -255,30 +213,31 @@ class Profile extends React.Component {
                         onPress={() => {
                             //navigate('Nutrition', { name: 'Jane' })
                             //this.authinticate(this.state.email, this.state.password, this.state.passwordReEnter)
+                            var tde = 0
                             if (this.state.sex === 'Male') {
-                                this.setState({tde: (66 + (13.7 * (Number(this.state.currentWeight) * 2.2)) + 
-                                    (5 * 2.54 * Number(this.state.height) - (6.8 * Number(this.state.age)))) * Number(this.state.activity_level)})
+                                tde = (66 + (13.7 * (Number(this.state.currentWeight) / 2.2)) + 
+                                    (5 * 2.54 * Number(this.state.height)) - (6.8 * Number(this.state.age)))  * Number(this.state.activity_level)
                             } else {
-                                this.setState({ted: (655 + (9.6 * (Number(this.state.currentWeight) * 2.2)) + (1.8 * 2.54 * Number(this.state.height) - 
-                                    (4.7 * Number(this.state.age)))) * Number(this.state.activity_level)})
+                                tde =( 655 + (9.6 * (Number(this.state.currentWeight) / 2.2)) + (1.8 * 2.54 * Number(this.state.height)) - 
+                                    (4.7 * Number(this.state.age))) * Number(this.state.activity_level)
                             }
+                            this.forceUpdate();
+                            if(!this.accountAlreadyCreated){
+                                this.authinticate(this.state.email, this.state.fullName, this.state.password, 
+                                    this.state.passwordReEnter, this.state.age, this.state.location, this.state.phoneNumber, 
+                                    this.state.sex, this.state.height, this.state.currentWeight, this.state.goalWeight, tde)
+    
+                            }
+                            this.forceUpdate();
 
-                            this.authinticate(this.state.email, this.state.fullName, this.state.password, 
-                                this.state.passwordReEnter, this.state.age, this.state.location, this.state.phoneNumber, 
-                                this.state.sex, this.state.height, this.state.currentWeight, this.state.goalWeight, this.state.tde)
-
-
-                            if (this.good) {
+                            if (this.accountAlreadyCreated) {
+                                Alert.alert("here~~~~~~~~~~")
                                 navigate('Nutrition')
                             }
-
-                        }}
+                            Alert.alert("here 2")
+                        }
+                    }
                     />
-
-
-
-
-
                 </ScrollView>
             </LinearGradient>
 
