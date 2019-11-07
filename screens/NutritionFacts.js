@@ -1,21 +1,15 @@
 import React from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
-  TextInput,
-  StatusBar,
-  ImageBackground,
   Image,
   ActivityIndicator,
   FlatList,
-  Input,
   Picker,
-  TouchableHighlight
+  Alert
 } from 'react-native';
-import { SearchBar, ListItem, Icon, Button } from 'react-native-elements';
+import { ListItem, Button, Input } from 'react-native-elements';
 
 
 
@@ -27,14 +21,14 @@ class NutritionFacts extends React.Component  {
 
     this.state = {
         isLoading: true,
-        itemInfo: this.props.navigation.state.params.itemInformation,       
+        itemInfo: this.props.navigation.state.params.itemInformation,  
+        servings: ' ' 
     };
 
   }
 
 
   componentDidMount(){
-
 
      return fetch(
         'https://trackapi.nutritionix.com/v2/search/item?nix_item_id=' + `${this.state.itemInfo}`,
@@ -55,14 +49,16 @@ class NutritionFacts extends React.Component  {
        })
        .catch((error) =>{
          console.error(error);
-       });
+       }
+    );
+
   }
 
-  state = {choosenLabel: '', choosenindex: ''};
 
   render(){
 
     const { navigate } = this.props.navigation;
+    
 
      if(this.state.isLoading){
 
@@ -109,22 +105,22 @@ class NutritionFacts extends React.Component  {
                                                                                             `${item.nix_item_id}`,
                                                                                             `${item.brand_name}`,
                                                                                             `${item.food_name}`,
-                                                                                            `${item.nf_calories}`,
-                                                                                            `${item.nf_total_fat}`,
-                                                                                            `${item.nf_saturated_fat}`,
-                                                                                            `${item.nf_cholesterol}`,
-                                                                                            `${item.nf_sodium}`,
-                                                                                            `${item.nf_total_carbohydrate}`,
-                                                                                            `${item.nf_dietary_fiber}`,
-                                                                                            `${item.nf_sugars}`,
-                                                                                            `${item.nf_protein}`);
+                                                                                            `${item.nf_calories}` * this.state.servings,
+                                                                                            `${item.nf_total_fat}` * this.state.servings,
+                                                                                            `${item.nf_saturated_fat}` * this.state.servings,
+                                                                                            `${item.nf_cholesterol}` * this.state.servings,
+                                                                                            `${item.nf_sodium}` * this.state.servings,
+                                                                                            `${item.nf_total_carbohydrate}` * this.state.servings,
+                                                                                            `${item.nf_dietary_fiber}` * this.state.servings,
+                                                                                            `${item.nf_sugars}` * this.state.servings,
+                                                                                            `${item.nf_protein}` * this.state.servings);
                                                                                             this.props.navigation.goBack();
                               }}
-
+                            
                             />
+                            
 
-
-                       </View>
+                   </View>
 
 
                        <ListItem
@@ -136,19 +132,16 @@ class NutritionFacts extends React.Component  {
                        />
 
                         <View style = {styles.containerOne} >
-                              <Text>Serving</Text>    
-                              <Picker
-                                style = {{color:'black', width: '30%'}}
-                                selectedValue={this.state.choosenLabel}
-                                onValueChange={(itemValue, itemIndex) =>
-                                this.setState({ choosenLabel: itemValue, choosenindex: itemIndex })
-                              }>
+                              <Text>Servings</Text>    
+                              <Input
+                              placeholder="# of Servings"  
+                              underlineColorAndroid='transparent'  
+                              inputStyle={styles.TextInputStyle}  
+                              keyboardType= 'numeric'
+                              maxLength = {1}
+                              onChangeText= {(text) => this.setState({servings:text}) }
+                              />
 
-                                 <Picker.Item label ='1' value = '1' />
-                                 <Picker.Item label ='2' value = '2' />
-                                 <Picker.Item label ='3' value = '3' />
-                                 <Picker.Item label ='4' value = '4' />
-                              </Picker>
                         </View>    
 
                        <ListItem
@@ -251,41 +244,18 @@ class NutritionFacts extends React.Component  {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#F5FCFF'
+      backgroundColor: '#F5FCFF',
     },
 
-    rowContainer: {
-      height: 64,
-      flexDirection: 'row',
-      alignItems: 'center',
-      paddingLeft: 16,
-    },
-  
-
-    content: {
-      paddingBottom: 300,
-    },
-
-    card1: {
-      paddingVertical: 16,
-    },
-
-    card2: {
-      padding: 16,
-    },
-
-    input: {
-      marginTop: 4,
-    },
-
-    title: {
-      paddingBottom: 16,
-      textAlign: 'center',
-      color: '#404d5b',
-      fontSize: 20,
-      fontWeight: 'bold',
-      opacity: 0.8,
-    },
+    TextInputStyle: {  
+      textAlign: 'center',  
+         height: 20,  
+         width: 1,
+         borderRadius: 10,  
+         borderWidth: 2,  
+         borderColor: '#009688',  
+         marginBottom: 10  
+     }  
 
   });
 

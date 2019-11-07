@@ -10,9 +10,8 @@ import {
     TextInput,
     Image
 } from 'react-native';
-import {Button,Icon} from 'react-native-elements'
+import { Button } from 'react-native-elements'
 import LinearGradient from 'react-native-linear-gradient';
-
 
 
 

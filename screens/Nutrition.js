@@ -2,24 +2,16 @@ import React from 'react';
 import {
   Animated,
   Dimensions,
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
   TextInput,
-  StatusBar,
-  ImageBackground,
-  Image,
-  ActivityIndicator,
   FlatList,
-  Input,
-  TouchableHighlight,
   Modal,
   TouchableOpacity
 } from 'react-native';
-import { Button, ListItem, Icon } from 'react-native-elements';
-import { SwipeListView, SwipeRow } from 'react-native-swipe-list-view';
+import { Button, ListItem } from 'react-native-elements';
+import { SwipeListView } from 'react-native-swipe-list-view';
 
 
 
@@ -86,7 +78,6 @@ class Nutrition extends React.Component  {
 
        arrayHolder: this.array
 
-
   }
 
 
@@ -115,7 +106,6 @@ class Nutrition extends React.Component  {
   render(){
 
      const {navigate} = this.props.navigation;
-
 
      return(
 
