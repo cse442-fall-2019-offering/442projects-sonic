@@ -13,10 +13,18 @@ import SignUp from './screens/SignUp'
 import Nutrition from './screens/Nutrition'
 import Login from './screens/Login'
 import NutritionFacts from './screens/NutritionFacts'
+import {init} from './UserDB/Init'
 
 
 
 class App extends React.Component {
+  db_setup(){
+    init();
+  }
+
+  componentDidMount() {
+    this.db_setup();
+  }
 
   static navigationOptions = {
     title: 'Welcome',
