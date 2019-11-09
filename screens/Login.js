@@ -9,21 +9,25 @@ import {
   Alert
 } from 'react-native';
 import { Input } from 'react-native-elements';
-import * as firebase from 'firebase';
-import init from '../UserDB/Init'
+//import * as firebase from 'firebase';
+import { authentication } from '../UserDB/Helper'
 
 
 
 
 class Login extends React.Component {
-
-
-  state = {
-    user: null,
-    isLoggedIn: false,
-    good: false
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: null,
+      isLoggedIn: false,
+      good: false
+    }
   }
 
+  // componentDidMount() {
+  //   const { navigate } = this.props.navigation;
+  // }
   // componentDidMount() {
 
   //   // To Configure react native app with cloud of Google Firebase database !
@@ -40,26 +44,14 @@ class Login extends React.Component {
   //   firebase.initializeApp(config);
 
   // }
-  // componentDidMount(){
-  //   init();
-  // }
+  
 
-  user_login(email_, password_) {
-    this.state.isLoggedIn = true;
-    var good = firebase.auth().signInWithEmailAndPassword(email_, password_).catch(function (error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      if (errorCode === 'auth/wrong-password') {
-        alert('Wrong password.');
-      } else {
-        alert(errorMessage);
-      }
-      console.log(error);
-      alert('here');
-      this.state.isLoggedIn = false;
-    });
-    
+  user_login = (email_, password_) => {
+    if (authentication(email_, password_)) {
+        this.props.navigation.navigate('SearchScreen');
+    } else {
+      Alert.alert("invalid username or password");
+    }
   }
 
 
@@ -99,10 +91,11 @@ class Login extends React.Component {
             style={styles.loginButtonStyle}
             onPress={() => {
               //Alert.alert('Log In button pressed');
-              this.user_login(this.state.email, this.state.password)
-              if(this.state.isLoggedIn){
-                navigate('SearchScreen')
-              }
+              this.user_login(this.state.email, this.state.password);
+              
+              // if(this.state.isLoggedIn){
+              //   navigate('SearchScreen')
+              //}
             }}
           >
 
