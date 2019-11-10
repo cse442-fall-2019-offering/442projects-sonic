@@ -1,8 +1,9 @@
 
 import firebase from 'firebase'
+import {User} from './User'
 
 export function init() {
-    
+
     var config = {
         apiKey: "AIzaSyAhQDAzgnHPymQkc1BNeB0sPKJTvPfZ20c",
         authDomain: "nutrition-go.firebaseapp.com",
@@ -14,7 +15,26 @@ export function init() {
         measurementId: "G-CLRT6JSHLW"
     };
     firebase.initializeApp(config);
+}
 
+export function getUser() {
+    return firebase.auth().currentUser;
+}
+
+export function isLoggedIn(){
+    var user = firebase.auth().currentUser;
+    if (user == null) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+export function signout(){
+    var user = firebase.auth().currentUser;
+    if (user) {
+        firebase.auth().signOut();
+    }
 }
 
 export function authentication(email, password) {
@@ -22,13 +42,8 @@ export function authentication(email, password) {
         init();
     }
 
-    var user = firebase.auth().currentUser;
-    if(user){
-        firebase.auth().signOut().then(function() {
-            // Sign-out successful.
-          }).catch(function(error) {
-            // An error happened.
-          });
+    if(isLoggedIn()){
+        signout();
     }
 
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
@@ -43,11 +58,53 @@ export function authentication(email, password) {
         console.log(error);
 
     });
-    var user = firebase.auth().currentUser;
+    return isLoggedIn();
+}
 
-    if (user == null) {
-        return true;
-    } else {
-        return false;
+export function setUserInfo(email_, password_, person){
+    firebase.auth().onAuthStateChanged(function(user){
+        if(user){
+            firebase.database().ref( 'users/' + user.uid).set({
+                email: email_,
+                password: password_,
+                fullName: person.fullName,
+                age: person.age,
+                location: person.location,
+                phoneNumber: person.phoneNumber,
+                sex: person.sex,
+                height: person.height,
+                currentWeight: person.currentWeight,
+                goalWeight: person.goalWeight,
+                foodArray: [FoodContent = {
+                    title: 'sandwitch',
+                    calories: 220,
+                }],
+                tde: person.tde,
+            })
+        }
+     });
+}
+
+export function createUser(email_, password_, person) {
+    if (isLoggedIn()) {
+        signout();
     }
+    
+    firebase.auth().createUserWithEmailAndPassword(email_, password_).catch(function (error) {
+        // Handle Errors here.
+        
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode == 'auth/weak-password') {
+            alert('The password is too weak.');
+        } else {
+            alert(errorMessage);
+        }
+        console.log(error);
+    });
+
+    let timerID = setInterval(setUserInfo(email_, password_, person), 500); //this starts the interval
+    clearInterval(timerID); //make sure you call this when the timer needs to end
+
+    return isLoggedIn();
 }

@@ -1,25 +1,23 @@
 
-
 import React from 'react';
 import { View, Text, StyleSheet, DatePickerAndroid, Picker, ScrollView, StatusBar, TextInput, Image, Alert } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import LinearGradient from 'react-native-linear-gradient';
 import { Button, Icon } from 'react-native-elements';
-import * as firebase from 'firebase';
+import {createUser} from '../UserDB/Helper';
+import {User} from '../UserDB/User';
 
 class Profile extends React.Component {
-    static accountAlreadyCreated = false;
+
     constructor(props){
         super(props);
         this.state = {
-            choosenLabel: '',
-            choosenindex: '',
             email: '',
             fullName: '',
             password: '',
             passwordReEnter: '',
-            age: '',
+            age: 30,
             location: '',
             phoneNumber: '',
             sex: 'Male',
@@ -30,60 +28,23 @@ class Profile extends React.Component {
             tde: 0
         };
     }
-    
+
+    componentDidMount(){
+        const { navigate } = this.props.navigation;
+    }
 
     authinticate(email_, fullName_,  password_, passwordReEnter_ , age_, location_, phoneNumber_, 
         sex_, height_, currentWeight_, goalWeight_, tde_) {
         if ((email_.includes('@')) && !(password_ === '') && (passwordReEnter_ === password_)) {
-
-            firebase.auth().createUserWithEmailAndPassword(email_, password_).catch(function (error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                if (errorCode == 'auth/weak-password') {
-                    alert('The password is too weak.');
-                } else {
-                    alert(errorMessage);
-                }
-                console.log(error);
-            });
-
-            firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    id = user.uid;
-                    if (id != null) {
-                        firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
-                            email: email_,
-                            fullName: fullName_,
-                            password: password_,
-                            age: Number(age_),
-                            location: location_,
-                            phoneNumber: phoneNumber_,
-                            sex: sex_,
-                            height: Number(height_),
-                            currentWeight: Number(currentWeight_),
-                            goalWeight: Number(goalWeight_),
-                            foodArray: [FoodContent= {
-                                title: 'sandwitch',
-                                calories: 220,
-                            }],
-                            tde: Number(tde_),
-                        });
-                        this.accountAlreadyCreated = true;
-                    }else{
-                        alert.alert("null id");
-                    }
-                } else {
-                    user.delete();
-                    alert.alert("not ready");
-                }
-              });
-
-        } else {
-            Alert.alert('bad! --' + email_ + ', ' + password_ + ', ' + passwordReEnter_);
+            
+                //Alert.alert(user.getUserInfo());
+            if ( createUser(email_, password_, new User(email_, fullName_,  password_ , age_, location_, phoneNumber_, 
+                sex_, height_, currentWeight_, goalWeight_, tde_)) ){
+                    
+                this.props.navigation.navigate('SearchScreen');
+            }
         }
     }
-
 
     render() {
 
@@ -130,7 +91,8 @@ class Profile extends React.Component {
                         placeholder='Age'
                         placeholderTextColor='#ffffff'
                         underlineColorAndroid='transparent'
-                        onChangeText={text => this.setState({ age: text })}
+                        keyboardType='numeric'
+                        onChangeText={text => this.setState({ age: Number(text) })}
                     />
 
                     <TextInput style={styles.InputBox}
@@ -215,26 +177,16 @@ class Profile extends React.Component {
                             //this.authinticate(this.state.email, this.state.password, this.state.passwordReEnter)
                             var tde = 0
                             if (this.state.sex === 'Male') {
-                                tde = (66 + (13.7 * (Number(this.state.currentWeight) / 2.2)) + 
+                                tde = (66 + (13.7 * (Number(this.state.goalWeight) / 2.2)) + 
                                     (5 * 2.54 * Number(this.state.height)) - (6.8 * Number(this.state.age)))  * Number(this.state.activity_level)
                             } else {
-                                tde =( 655 + (9.6 * (Number(this.state.currentWeight) / 2.2)) + (1.8 * 2.54 * Number(this.state.height)) - 
+                                tde =( 655 + (9.6 * (Number(this.state.goalWeight) / 2.2)) + (1.8 * 2.54 * Number(this.state.height)) - 
                                     (4.7 * Number(this.state.age))) * Number(this.state.activity_level)
                             }
                             this.forceUpdate();
-                            if(!this.accountAlreadyCreated){
-                                this.authinticate(this.state.email, this.state.fullName, this.state.password, 
-                                    this.state.passwordReEnter, this.state.age, this.state.location, this.state.phoneNumber, 
-                                    this.state.sex, this.state.height, this.state.currentWeight, this.state.goalWeight, tde)
-    
-                            }
-                            this.forceUpdate();
-
-                            if (this.accountAlreadyCreated) {
-                                Alert.alert("here~~~~~~~~~~")
-                                navigate('Nutrition')
-                            }
-                            Alert.alert("here 2")
+                            this.authinticate(this.state.email, this.state.fullName, this.state.password, 
+                                this.state.passwordReEnter, this.state.age, this.state.location, this.state.phoneNumber, 
+                                this.state.sex, this.state.height, this.state.currentWeight, this.state.goalWeight, tde);
                         }
                     }
                     />
