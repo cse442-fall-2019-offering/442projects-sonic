@@ -56,7 +56,7 @@ class Nutrition extends React.Component  {
   }
 
 
-  returnData(image, item_id, brand_name, food_name, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, total_sugar, protein ) {
+  returnData(image, item_id, brand_name, food_name, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, total_sugar, protein, servings ) {
 
        this.array.push({
 
@@ -73,6 +73,7 @@ class Nutrition extends React.Component  {
                dietary_fiber: dietary_fiber,
                total_sugar: total_sugar,
                protein: protein,
+               servings: servings
 
        });
 
@@ -161,14 +162,14 @@ class Nutrition extends React.Component  {
                         data={this.array}
                         width='100%'
                         extraData={this.array}
-                        keyExtractor={(item,index) => {return `${index}` } }
-                        renderItem={({item, index}) =>(
+                        keyExtractor={(index) => {return `${index}` } }
+                        renderItem={({item}) =>(
 
                             <Animated.View>
 
                                     <ListItem
                                         leftAvatar= {{ source: {uri: item.image} }}
-                                        title={`${item.brand_name} ` + `${item.food_name} `}
+                                        title={ item.servings + 'x ' + `${item.brand_name} ` + `${item.food_name} `}
                                         titleStyle= {{fontWeight: 'bold', fontSize: 15}}
                                         subtitle={'Calories: '+`${item.calories}`}
                                         bottomDivider

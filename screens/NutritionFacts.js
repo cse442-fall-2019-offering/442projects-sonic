@@ -6,8 +6,7 @@ import {
   Image,
   ActivityIndicator,
   FlatList,
-  Picker,
-  Alert
+  Alert,
 } from 'react-native';
 import { ListItem, Button, Input } from 'react-native-elements';
 
@@ -52,6 +51,41 @@ class NutritionFacts extends React.Component  {
        }
     );
 
+  }
+
+  wrongValue(item){
+
+    if(this.state.servings == '0' || this.state.servings == '.' || this.state.servings == ',' || this.state.servings == '-' || this.state.servings == ' ' ){
+
+        Alert.alert("Enter Valid # of Servings")
+
+    }
+
+    else{
+
+      this.props.navigation.state.params.returnData(
+        `${item.photo.thumb}`,
+        `${item.nix_item_id}`,
+        `${item.brand_name}`,
+        `${item.food_name}`,
+        `${item.nf_calories}` * this.state.servings,
+        `${item.nf_total_fat}` * this.state.servings,
+        `${item.nf_saturated_fat}` * this.state.servings,
+        `${item.nf_cholesterol}` * this.state.servings,
+        `${item.nf_sodium}` * this.state.servings,
+        `${item.nf_total_carbohydrate}` * this.state.servings,
+        `${item.nf_dietary_fiber}` * this.state.servings,
+        `${item.nf_sugars}` * this.state.servings,
+        `${item.nf_protein}` * this.state.servings,
+        `${this.state.servings}`);
+        this.props.navigation.goBack();
+
+
+
+
+    }
+
+    
   }
 
 
@@ -100,21 +134,7 @@ class NutritionFacts extends React.Component  {
                               buttonStyle = {{backgroundColor:'#FFFFFF'}}
                               icon = {{name:'ios-add-circle-outline', type:'ionicon'}}
 
-                              onPress={() => {this.props.navigation.state.params.returnData(
-                                                                                            `${item.photo.thumb}`,
-                                                                                            `${item.nix_item_id}`,
-                                                                                            `${item.brand_name}`,
-                                                                                            `${item.food_name}`,
-                                                                                            `${item.nf_calories}` * this.state.servings,
-                                                                                            `${item.nf_total_fat}` * this.state.servings,
-                                                                                            `${item.nf_saturated_fat}` * this.state.servings,
-                                                                                            `${item.nf_cholesterol}` * this.state.servings,
-                                                                                            `${item.nf_sodium}` * this.state.servings,
-                                                                                            `${item.nf_total_carbohydrate}` * this.state.servings,
-                                                                                            `${item.nf_dietary_fiber}` * this.state.servings,
-                                                                                            `${item.nf_sugars}` * this.state.servings,
-                                                                                            `${item.nf_protein}` * this.state.servings);
-                                                                                            this.props.navigation.goBack();
+                              onPress={() => {this.wrongValue(item); 
                               }}
                             
                             />
