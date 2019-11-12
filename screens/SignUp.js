@@ -139,7 +139,7 @@ class SignUp extends React.Component {
                        rounded= {true}
                        title= "Let's Get Started!"
                        icon = {{name:'ios-cloud-done', type:'ionicon'}}
-                       onPress={() => navigate('SearchScreen')}
+                       onPress={() => navigate('HomeScreen')}
                    />
 
            </ScrollView>

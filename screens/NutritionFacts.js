@@ -78,10 +78,8 @@ class NutritionFacts extends React.Component  {
         `${item.nf_sugars}` * this.state.servings,
         `${item.nf_protein}` * this.state.servings,
         `${this.state.servings}`);
+        this.props.navigation.navigate('Home', {calories: `${item.nf_calories}` * this.state.servings, protein:`${item.nf_protein}` * this.state.servings, fat:`${item.nf_total_fat}` * this.state.servings, carbs:`${item.nf_total_carbohydrate}` * this.state.servings});
         this.props.navigation.goBack();
-
-
-
 
     }
 
@@ -134,8 +132,7 @@ class NutritionFacts extends React.Component  {
                               buttonStyle = {{backgroundColor:'#FFFFFF'}}
                               icon = {{name:'ios-add-circle-outline', type:'ionicon'}}
 
-                              onPress={() => {this.wrongValue(item); 
-                              }}
+                              onPress={() => {this.wrongValue(item);}}
                             
                             />
                             

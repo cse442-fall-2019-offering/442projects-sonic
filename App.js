@@ -13,7 +13,8 @@ import SignUp from './screens/SignUp'
 import Nutrition from './screens/Nutrition'
 import Login from './screens/Login'
 import NutritionFacts from './screens/NutritionFacts'
-
+import Home from './screens/Home'
+import Profile from './screens/Profile'
 
 
 class App extends React.Component {
@@ -34,7 +35,10 @@ class App extends React.Component {
         LoginScreen: {screen: Login, navigationOptions: { header: null }},
         SignUpScreen: {screen: SignUp, navigationOptions: { headerTransparent: true }},
         SearchScreen: {screen: Nutrition, navigationOptions: { header: null }},
-        NutritionFactsScreen: {screen: NutritionFacts, navigationOptions: { headerTransparent: true }}
+        NutritionFactsScreen: {screen: NutritionFacts, navigationOptions: { headerTransparent: true }},
+        HomeScreen: {screen: Home, navigationOptions: { header: null }},
+        ProfileScreen: {screen: Profile, navigationOptions: { header: null }},
+
     },
 
     {
