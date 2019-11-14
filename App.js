@@ -6,17 +6,27 @@ import {
     Text,
     Button,
     Image,
-    TouchableHighlight
+    TouchableHighlight,
+    Alert
 } from 'react-native';
 import { Input } from 'react-native-elements';
 import SignUp from './screens/SignUp'
 import Nutrition from './screens/Nutrition'
 import Login from './screens/Login'
 import NutritionFacts from './screens/NutritionFacts'
+import {init} from './UserDB/Helper'
 
 
 
 class App extends React.Component {
+  db_setup = () =>{
+    init();
+  }
+
+  componentDidMount() {
+    this.db_setup();
+    //Alert.alert("here");
+  }
 
   static navigationOptions = {
     title: 'Welcome',

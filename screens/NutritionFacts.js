@@ -64,6 +64,7 @@ class NutritionFacts extends React.Component  {
     else{
 
       this.props.navigation.state.params.returnData(
+        
         `${item.photo.thumb}`,
         `${item.nix_item_id}`,
         `${item.brand_name}`,
@@ -79,9 +80,6 @@ class NutritionFacts extends React.Component  {
         `${item.nf_protein}` * this.state.servings,
         `${this.state.servings}`);
         this.props.navigation.goBack();
-
-
-
 
     }
 
@@ -278,6 +276,5 @@ class NutritionFacts extends React.Component  {
      }  
 
   });
-
 
 export default NutritionFacts;
