@@ -5,6 +5,7 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 target 'NutritionGo' do
   # Pods for NutritionGo
 =======
+
 target 'Nutrition' do
   # Pods for Nutrition
 >>>>>>> nutrition_facts

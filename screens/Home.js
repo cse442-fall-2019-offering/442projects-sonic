@@ -7,6 +7,7 @@ import Profile from '../screens/Profile'
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import * as Progress from 'react-native-progress';
 import PieChart from 'react-native-pie-chart';
+import Camera from '../screens/Camera'
 
 var calResult = 0;
 var proteinResult = 0;
@@ -174,7 +175,19 @@ const TabNavigator = createBottomTabNavigator(
               <Icon name = "user" size = {30} color = "#cfc9c8"/>
             )
         }
+    },
+
+    Camera: {
+      screen: Camera,
+      navigationOptions: {
+          tabBarLabel:"Scanner",
+          tabBarIcon:({tintColor}) => (
+            <Icon name = "user" size = {30} color = "#cfc9c8"/>
+          )
+      }
     }
+
+    
 
   }
 
