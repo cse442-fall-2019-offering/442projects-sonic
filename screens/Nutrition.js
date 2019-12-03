@@ -1,22 +1,17 @@
 import React from 'react';
 import {
-  SafeAreaView,
+  Animated,
+  Dimensions,
   StyleSheet,
-  ScrollView,
   View,
   Text,
   TextInput,
-  StatusBar,
-  ImageBackground,
-  Image,
-  ActivityIndicator,
   FlatList,
-  Input,
-  TouchableHighlight,
-  Modal
+  Modal,
+  TouchableOpacity
 } from 'react-native';
-import { Button, ListItem, Icon } from 'react-native-elements';
-import LinearGradient from 'react-native-linear-gradient';
+import { Button, ListItem } from 'react-native-elements';
+import { SwipeListView } from 'react-native-swipe-list-view';
 
 
 
@@ -26,6 +21,7 @@ class Nutrition extends React.Component  {
     super(props);
     this.array = [];
 
+
     this.state = {
         isLoading: true,
         modalVisible: false,
@@ -34,6 +30,7 @@ class Nutrition extends React.Component  {
 
   }
 
+
   fetchData(text) {
     this.setState({ text });
     const url = 'https://trackapi.nutritionix.com/v2/search/instant?query=';
@@ -41,8 +38,8 @@ class Nutrition extends React.Component  {
     fetch(url + text,
       {
         headers:{
-          'x-app-id' : '979e48c8',
-          'x-app-key': 'e7cc162c38e1ee157bcad82667783fef'
+          'x-app-id' : '0eaa9d35',
+          'x-app-key': '1f817bc9e71ffe3bd9a3db706d8ff92a'
         }
       })
       .then(response => response.json())
@@ -58,7 +55,8 @@ class Nutrition extends React.Component  {
       });
   }
 
-  returnData(image, item_id, brand_name, food_name, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, total_sugar, protein ) {
+
+  returnData(image, item_id, brand_name, food_name, calories, total_fat, saturated_fat, cholesterol, sodium, total_carbohydrate, dietary_fiber, total_sugar, protein, servings ) {
 
        this.array.push({
 
@@ -75,6 +73,7 @@ class Nutrition extends React.Component  {
                dietary_fiber: dietary_fiber,
                total_sugar: total_sugar,
                protein: protein,
+               servings: servings
 
        });
 
@@ -93,15 +92,28 @@ class Nutrition extends React.Component  {
   componentDidMount() {
 
        this.setState({ arrayHolder: this.array });
+
+  }
+
+
+  deleteRow(index) {
+
+      this.array.splice(index, 1);
+      this.setState({ arrayHolder: this.array });
+
   }
 
 
   render(){
 
-      const {navigate} = this.props.navigation;
+     const {navigate} = this.props.navigation;
 
-      return(
-        <LinearGradient colors= {['#97E1BE','#E26BF7']} style = {{flex:1}}>
+     return(
+
+
+        <View style={styles.container}>
+
+
              <Button
                  large
                  raised
@@ -122,10 +134,12 @@ class Nutrition extends React.Component  {
              />
             
 
+
              <Modal
                animationType = {"slide"}
                transparent = {false}
                visible = {this.state.modalVisible}>
+
 
                 <View>
 
@@ -145,22 +159,46 @@ class Nutrition extends React.Component  {
 
                     </View>
 
-                    <FlatList
-                        data={this.state.arrayHolder}
+                    <SwipeListView
+                        data={this.array}
                         width='100%'
-                        extraData={this.state.arrayHolder}
-                        keyExtractor={(item) => {return item.item_id} }
-                        renderItem={({ item }) =>(
+                        extraData={this.array}
+                        keyExtractor={(index) => {return `${index}` } }
+                        renderItem={({item}) =>(
 
-                            <ListItem
-                                leftAvatar= {{ source: {uri: item.image} }}
-                                title={`${item.brand_name} ` + `${item.food_name} `}
-                                titleStyle= {{fontWeight: 'bold', fontSize: 15,}}
-                                subtitle={'Calories: '+`${item.calories}`}
-                                bottomDivider
-                            />
+                            <Animated.View>
+
+                                    <ListItem
+                                        leftAvatar= {{ source: {uri: item.image} }}
+                                        title={ item.servings + 'x ' + `${item.brand_name} ` + `${item.food_name} `}
+                                        titleStyle= {{fontWeight: 'bold', fontSize: 15}}
+                                        subtitle={'Calories: '+`${item.calories}`}
+                                        bottomDivider
+                                    />
+
+                            </Animated.View>
 
                         )}
+
+                        renderHiddenItem={ ({item,index}) => (
+
+                            <View style={styles.standaloneRowBack}>
+
+                                 <TouchableOpacity s
+                                        style={[ styles.backRightBtn, styles.backRightBtnRight]}
+                                        onPress={() => this.deleteRow( index )}
+                                 >
+
+                                    <Text style={styles.backTextWhite}> Delete </Text>
+
+                                </TouchableOpacity>
+
+                            </View>
+
+                        )}
+
+                        disableRightSwipe = {true}
+                        rightOpenValue={-75}
 
                     />
 
@@ -176,10 +214,11 @@ class Nutrition extends React.Component  {
                      <ListItem
 
                          leftAvatar={{ source: { uri: item.photo.thumb } }}
-                         title={`${item.food_name} `}
+                         title={`${item.brand_name} `+`${item.food_name} `}
                          subtitle={'Calories: '+`${item.nf_calories}`}
                          onPress={() => navigate('NutritionFactsScreen',{ itemInformation:`${item.nix_item_id}`, returnData: this.returnData.bind(this) })}
                          bottomDivider
+
                      />
 
                  )}
@@ -203,18 +242,6 @@ class Nutrition extends React.Component  {
       paddingTop: 24,
       backgroundColor: 'white',
     },
-    content: {
-      paddingBottom: 300,
-    },
-    card1: {
-      paddingVertical: 16,
-    },
-    card2: {
-      padding: 16,
-    },
-    input: {
-      marginTop: 4,
-    },
     title: {
       paddingBottom: 10,
       textAlign: 'center',
@@ -223,6 +250,81 @@ class Nutrition extends React.Component  {
       fontWeight: 'bold',
       opacity: 0.8,
     },
+    standalone: {
+        marginTop: 30,
+        marginBottom: 30,
+    },
+    standaloneRowFront: {
+        alignItems: 'center',
+        backgroundColor: '#CCC',
+        justifyContent: 'center',
+        height: 50,
+    },
+    standaloneRowBack: {
+        alignItems: 'center',
+        backgroundColor: '#d42c2c',
+        //backgroundColor: '#8BC645',
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 15,
+    },
+    backTextWhite: {
+        color: '#FFF',
+    },
+    rowFront: {
+        alignItems: 'center',
+        backgroundColor: '#CCC',
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
+        justifyContent: 'center',
+        height: 50,
+    },
+    rowBack: {
+        alignItems: 'center',
+        backgroundColor: '#DDD',
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingLeft: 15,
+    },
+    backRightBtn: {
+        alignItems: 'center',
+        bottom: 0,
+        justifyContent: 'center',
+        position: 'absolute',
+        top: 0,
+        width: 75,
+    },
+    backRightBtnLeft: {
+        backgroundColor: 'blue',
+        right: 75,
+    },
+    backRightBtnRight: {
+        backgroundColor: 'red',
+        right: 0,
+    },
+    controls: {
+        alignItems: 'center',
+        marginBottom: 30,
+    },
+    switchContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginBottom: 5,
+    },
+    switch: {
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: 'black',
+        paddingVertical: 10,
+        width: Dimensions.get('window').width / 4,
+    },
+    trash: {
+        height: 25,
+        width: 25,
+    },
   });
 
 export default Nutrition;
+

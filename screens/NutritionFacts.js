@@ -1,20 +1,14 @@
 import React from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
-  TextInput,
-  StatusBar,
-  ImageBackground,
   Image,
   ActivityIndicator,
   FlatList,
-  Input,
-  TouchableHighlight
+  Alert,
 } from 'react-native';
-import { SearchBar, ListItem, Icon, Button } from 'react-native-elements';
+import { ListItem, Button, Input } from 'react-native-elements';
 
 
 
@@ -27,8 +21,8 @@ class NutritionFacts extends React.Component  {
 
     this.state = {
         isLoading: true,
-        itemInfo: this.props.navigation.state.params.itemInformation,
-        calorieCounter: 0
+        itemInfo: this.props.navigation.state.params.itemInformation,  
+        servings: ' ' 
     };
 
   }
@@ -42,14 +36,13 @@ arrayHolder: this.array
 
 
   componentDidMount(){
-    let foods = [];
 
      return fetch(
         'https://trackapi.nutritionix.com/v2/search/item?nix_item_id=' + `${this.state.itemInfo}`,
         {
                 headers:{
-                  'x-app-id' : '979e48c8',
-                  'x-app-key': 'e7cc162c38e1ee157bcad82667783fef'
+                  'x-app-id' : '0eaa9d35',
+                  'x-app-key': '1f817bc9e71ffe3bd9a3db706d8ff92a'
                 }
         })
        .then((response) => response.json())
@@ -63,12 +56,50 @@ arrayHolder: this.array
        })
        .catch((error) =>{
          console.error(error);
-       });
+       }
+    );
+
   }
+
+  wrongValue(item){
+
+    if(this.state.servings == '0' || this.state.servings == '.' || this.state.servings == ',' || this.state.servings == '-' || this.state.servings == ' ' ){
+
+        Alert.alert("Enter Valid # of Servings")
+
+    }
+
+    else{
+
+      this.props.navigation.state.params.returnData(
+        
+        `${item.photo.thumb}`,
+        `${item.nix_item_id}`,
+        `${item.brand_name}`,
+        `${item.food_name}`,
+        `${item.nf_calories}` * this.state.servings,
+        `${item.nf_total_fat}` * this.state.servings,
+        `${item.nf_saturated_fat}` * this.state.servings,
+        `${item.nf_cholesterol}` * this.state.servings,
+        `${item.nf_sodium}` * this.state.servings,
+        `${item.nf_total_carbohydrate}` * this.state.servings,
+        `${item.nf_dietary_fiber}` * this.state.servings,
+        `${item.nf_sugars}` * this.state.servings,
+        `${item.nf_protein}` * this.state.servings,
+        `${this.state.servings}`);
+        this.props.navigation.navigate('Home', {calories: `${item.nf_calories}` * this.state.servings, protein:`${item.nf_protein}` * this.state.servings, fat:`${item.nf_total_fat}` * this.state.servings, carbs:`${item.nf_total_carbohydrate}` * this.state.servings});
+        this.props.navigation.goBack();
+
+    }
+
+    
+  }
+
 
   render(){
 
     const { navigate } = this.props.navigation;
+    
 
      if(this.state.isLoading){
 
@@ -110,29 +141,13 @@ arrayHolder: this.array
                               buttonStyle = {{backgroundColor:'#FFFFFF'}}
                               icon = {{name:'ios-add-circle-outline', type:'ionicon'}}
 
-                              onPress={() => {this.props.navigation.state.params.returnData(
-                                                                                            `${item.photo.thumb}`,
-                                                                                            `${item.nix_item_id}`,
-                                                                                            `${item.brand_name}`,
-                                                                                            `${item.food_name}`,
-                                                                                            `${item.nf_calories}`,
-                                                                                            `${item.nf_total_fat}`,
-                                                                                            `${item.nf_saturated_fat}`,
-                                                                                            `${item.nf_cholesterol}`,
-                                                                                            `${item.nf_sodium}`,
-                                                                                            `${item.nf_total_carbohydrate}`,
-                                                                                            `${item.nf_dietary_fiber}`,
-                                                                                            `${item.nf_sugars}`,
-                                                                                            `${item.nf_protein}`);
-                                                                                            this.props.navigation.navigate('Home', {calories: `${item.nf_calories}`,protein:`${item.nf_protein}`,fat:`${item.nf_total_fat}`,carbs:`${item.nf_total_carbohydrate}`});
-                                                                                            this.props.navigation.goBack();
-                                                                                          
-                                            
-                              }}
-
+                              onPress={() => {this.wrongValue(item);}}
+                            
                             />
+                            
 
-                       </View>
+                   </View>
+
 
                        <ListItem
                                  title={`${item.brand_name} ` + `${item.food_name} `}
@@ -141,6 +156,20 @@ arrayHolder: this.array
                                  subtitleStyle = {{textAlign:'center'}}
                                  bottomDivider
                        />
+
+                        <View style = {styles.containerOne} >
+                              <Text>Servings</Text>    
+                              <Input
+                              placeholder="# of Servings"  
+                              underlineColorAndroid='transparent'  
+                              inputStyle={styles.TextInputStyle}  
+                              keyboardType= 'numeric'
+                              maxLength = {1}
+                              onChangeText= {(text) => this.setState({servings:text}) }
+                              />
+
+                        </View>    
+
                        <ListItem
                                  title="Calories"
                                  subtitle={`${item.nf_calories} ` }
@@ -237,32 +266,23 @@ arrayHolder: this.array
       backgroundColor: 'white',
     },
 
-    content: {
-      paddingBottom: 300,
+    containerOne: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#F5FCFF',
     },
 
-    card1: {
-      paddingVertical: 16,
-    },
-
-    card2: {
-      padding: 16,
-    },
-
-    input: {
-      marginTop: 4,
-    },
-
-    title: {
-      paddingBottom: 16,
-      textAlign: 'center',
-      color: '#404d5b',
-      fontSize: 20,
-      fontWeight: 'bold',
-      opacity: 0.8,
-    },
+    TextInputStyle: {  
+      textAlign: 'center',  
+         height: 20,  
+         width: 1,
+         borderRadius: 10,  
+         borderWidth: 2,  
+         borderColor: '#009688',  
+         marginBottom: 10  
+     }  
 
   });
-
 
 export default NutritionFacts;

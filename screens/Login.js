@@ -1,138 +1,122 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
-    View,
-    Text,
-    Button,
-    Image,
-    Alert,
-    TouchableHighlight,
-    StyleSheet,
+  View,
+  Text,
+  Button,
+  Image,
+  TouchableHighlight,
+  StyleSheet,
+  Alert
 } from 'react-native';
-import Modal from "react-native-modal";
 import { Input } from 'react-native-elements';
-import LinearGradient from 'react-native-linear-gradient';
-
+//import * as firebase from 'firebase';
+import { authentication } from '../UserDB/Helper'
 
 
 
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: null,
+      isLoggedIn: false,
+      good: false
+    }
+  }
 
-  state = {
-    isModalVisible: false
-  };
 
-  toggleModal = () => {
-    this.setState({ isModalVisible: !this.state.isModalVisible });
-  };
+
+  user_login = (email_, password_) => {
+    if (authentication(email_, password_)) {
+        this.props.navigation.navigate('HomeScreen');
+    } else {
+      Alert.alert("invalid username or password");
+    }
+  }
+
 
   render() {
 
-    const {navigate} = this.props.navigation;
+    const { navigate } = this.props.navigation;
 
     return (
 
-      <LinearGradient colors= {['#97E1BE','#E26BF7']} style = {{flex:1,justifyContent:"center",alignItems: "center",padding: 15}}>
-  
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center", padding: 15, backgroundColor: "#00b3c0" }} >
+
         <View style={{ paddingBottom: 60, flexDirection: 'row' }}>
 
-          <Text style = {{fontSize: 40,color: "white",fontWeight: "bold",letterSpacing:2.5}}>
-            NUTRITION
-              GO
-          </Text>
+          <Image
+            style={styles.imageStyle}
+            source={require('../Images/health.png')}
+          />
 
         </View>
 
-
-
         <Input
           placeholder='Username'
-          placeholderTextColor='#FFFFFF'
-          //backgroundColor='#00cccc'
-
+          placeholderTextColor='#ffff66'
+          onChangeText={text => this.setState({ email: text })}
         />
 
         <Input
           placeholder='Password'
-          placeholderTextColor='#FFFFFF'
-          //backgroundColor='#00cccc'
+          placeholderTextColor='#ffff66'
+          secureTextEntry= {true}
+          onChangeText={text => this.setState({ password: text })}
+
         />
 
-
-        <View style={{ padding: 15, marginTop: 50 }} >
-
+        <View style={{ padding: 15, marginTop: 10 }} >
 
           <TouchableHighlight
             style={styles.loginButtonStyle}
-            onPress={() => Alert.alert('Log In button pressed')}
+            onPress={() => {
+              //Alert.alert('Log In button pressed');
+              this.user_login(this.state.email, this.state.password);
+              
+            }}
           >
 
-            <Text style = {{fontWeight : 'bold'}}> LOG IN </Text>
+            <Text style={{ fontWeight: 'bold' }}> LOG IN </Text>
 
           </TouchableHighlight>
 
         </View>
 
-        <View style={{ flexDirection: 'row', }}>
-        <TouchableHighlight
-            style={styles.loginButtonStyle}
-            onPress={() => navigate('SignUpScreen')}
-          >
+        <View style={{ flexDirection: 'row' }}>
 
-            <Text style = {{fontWeight : 'bold'}}> SIGN UP </Text>
-
-          </TouchableHighlight>
-
-          
+          <Text> Create A </Text>
+          <Text style={{ color: "#ffff66", fontWeight: 'bold' }} onPress={() => navigate('SignUpScreen')}> New Account </Text>
 
         </View>
 
-        <View style={{ padding: 15, marginTop: 50 }} >
+      </View>
 
-        <Text style = {{color:'white'}} onPress={this.toggleModal}> Privacy Policy </Text>
-        <Modal backdropColor={'white'} isVisible={this.state.isModalVisible}>
-          <View style={{ flex: 1 }}>
-            <Text>If you choose to use our Service, then you agree to the collection and use of information in relation with this policy. The Personal Information that we collect are used for providing and improving the Service. We will not use or share your information with anyone except as described in this Privacy Policy.
-
-The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at Website URL, unless otherwise defined in this Privacy Policy. </Text>
-            <Button title="Close" onPress={this.toggleModal} />
-          </View>
-        </Modal>
- 
-
-        
-
-        </View>
-
-
-      </LinearGradient>
     );
+
   }
+
 }
 
 
 
 const styles = StyleSheet.create({
 
+  loginButtonStyle: {
+    height: 40,
+    width: 150,
+    borderRadius: 3,
+    alignItems: 'center',
+    backgroundColor: '#ffff66',
+    padding: 10
+  },
 
-
-   loginButtonStyle:{
-     backgroundColor: 'rgba(255, 255, 255, 0.9)',
-     height: 50,
-     width:300,
-     marginHorizontal:20,
-     borderRadius:35,
-     alignItems:'center',
-     justifyContent:'center',
-   },
-
-   imageStyle: {
-        width: 60,
-        height: 60,
-        justifyContent: "space-evenly"
-   }
-
-
+  imageStyle: {
+    width: 60,
+    height: 60,
+    justifyContent: "space-evenly"
+  }
 
 });
 
