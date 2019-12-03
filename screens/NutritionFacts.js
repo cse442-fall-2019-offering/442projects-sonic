@@ -33,8 +33,8 @@ class NutritionFacts extends React.Component  {
         'https://trackapi.nutritionix.com/v2/search/item?nix_item_id=' + `${this.state.itemInfo}`,
         {
                 headers:{
-                  'x-app-id' : '0eaa9d35',
-                  'x-app-key': '1f817bc9e71ffe3bd9a3db706d8ff92a'
+                  'x-app-id' : '48a4fb4d',
+                  'x-app-key': 'ab1a023c1f9211523c711e0bbdd17599'
                 }
         })
        .then((response) => response.json())
