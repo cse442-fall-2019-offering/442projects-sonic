@@ -224,7 +224,9 @@ class Nutrition extends React.Component  {
                  )}
 
              />
-        </View>
+
+          </View>
+
 
       );
 

@@ -91,6 +91,12 @@ class Login extends React.Component {
 
         </View>
 
+        <View style={{ flexDirection: 'row', }}>
+          <Text style={{ color: "#ffff66", fontWeight: 'bold' }} onPress={() => {
+             this.props.navigation.navigate('PrivacyPolicyScreen')
+          }}> Privacy Policy </Text>
+        </View>
+
       </View>
 
     );
