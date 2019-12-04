@@ -225,7 +225,7 @@ class Nutrition extends React.Component  {
 
              />
 
-          </LinearGradient>
+          </View>
 
 
       );
