@@ -7,6 +7,7 @@ import Login from './screens/Login'
 import NutritionFacts from './screens/NutritionFacts'
 import Home from './screens/Home'
 import Profile from './screens/Profile'
+import PrivacyPolicy from './screens/PrivacyPolicy'
 import {init} from './UserDB/Helper'
 
 
@@ -40,6 +41,7 @@ class App extends React.Component {
       NutritionFactsScreen: {screen: NutritionFacts, navigationOptions: { headerTransparent: true }},
       HomeScreen: {screen: Home, navigationOptions: { header: null }},
       ProfileScreen: {screen: Profile, navigationOptions: { header: null }},
+      PrivacyPolicyScreen: {screen: PrivacyPolicy, navigationOptions: { header: null }}
     },
 
     {
