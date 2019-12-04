@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Text, View } from 'react-native';
+import { Text, View, Dimensions} from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
 class Camera extends Component {
@@ -8,6 +8,8 @@ class Camera extends Component {
     super(props);
     this.camera = null;
     this.barcodeCodes = [];
+    let { width } = Dimensions.get('window');
+	  this.maskLength = (width*85)/100; 
 
     this.state = {
       camera: {
@@ -18,13 +20,14 @@ class Camera extends Component {
   }
 
   onBarCodeRead(scanResult) {
-    console.warn(scanResult.type);
-    console.warn(scanResult.data);
+   // console.warn(scanResult.type);
+   // console.warn(scanResult.data);
+    this.props.navigation.navigate('NutritionFactsScreen',{idType:"upc", itemInformation:`${scanResult.data}`})
     if (scanResult.data != null) {
-	if (!this.barcodeCodes.includes(scanResult.data)) {
-	  this.barcodeCodes.push(scanResult.data);
-	  console.warn('onBarCodeRead call');
-	}
+	    if (!this.barcodeCodes.includes(scanResult.data)) {
+	      this.barcodeCodes.push(scanResult.data);
+	    //  console.warn('onBarCodeRead call');
+	    }
     }
     return;
   }
@@ -53,33 +56,37 @@ class Camera extends Component {
   }
 
   render() {
+
     return (
+
       <View style={styles.container}>
+
         <RNCamera
-            ref={ref => {
-              this.camera = ref;
-            }}
+            ref={ref => {this.camera = ref;}}
             defaultTouchToFocus
             flashMode={this.state.camera.flashMode}
             mirrorImage={false}
             onBarCodeRead={this.onBarCodeRead.bind(this)}
             onFocusChanged={() => {}}
             onZoomChanged={() => {}}
-            permissionDialogTitle={'Permission to use camera'}
-            permissionDialogMessage={'We need your permission to use your camera phone'}
+            androidCameraPermissionOptions={{
+              title: 'Permission to use camera',
+              message: 'We need your permission to use your camera',
+              buttonPositive: 'Ok',
+              buttonNegative: 'Cancel',
+            }}
             style={styles.preview}
             type={this.state.camera.type}
         />
+
         <View style={[styles.overlay, styles.topOverlay]}>
-	  <Text style={styles.scanScreenMessage}>Please scan the barcode.</Text>
-	</View>
-	<View style={[styles.overlay, styles.bottomOverlay]}>
-          <Button
-            onPress={() => { console.log('scan clicked'); }}
-            style={styles.enterBarcodeManualButton}
-            title="Enter Barcode"
-           />
-	</View>
+	          <Text style={styles.scanScreenMessage}>Please scan the barcode</Text>
+	      </View>
+
+      	<View style={[styles.overlay, styles.bottomOverlay]}> 
+            <Text>Please Scan the barcode</Text>
+        </View>
+
       </View>
     );
   }
@@ -105,8 +112,9 @@ const styles = {
     top: 0,
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.4)'
   },
   bottomOverlay: {
     bottom: 0,
