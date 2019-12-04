@@ -38,8 +38,8 @@ class Nutrition extends React.Component  {
     fetch(url + text,
       {
         headers:{
-          'x-app-id' : '0eaa9d35',
-          'x-app-key': '1f817bc9e71ffe3bd9a3db706d8ff92a'
+          'x-app-id' : '48a4fb4d',
+          'x-app-key': 'ab1a023c1f9211523c711e0bbdd17599'
         }
       })
       .then(response => response.json())
@@ -216,7 +216,7 @@ class Nutrition extends React.Component  {
                          leftAvatar={{ source: { uri: item.photo.thumb } }}
                          title={`${item.brand_name} `+`${item.food_name} `}
                          subtitle={'Calories: '+`${item.nf_calories}`}
-                         onPress={() => navigate('NutritionFactsScreen',{ itemInformation:`${item.nix_item_id}`, returnData: this.returnData.bind(this) })}
+                         onPress={() => navigate('NutritionFactsScreen',{idType:"nix_item_id", itemInformation:`${item.nix_item_id}`, returnData: this.returnData.bind(this) })}
                          bottomDivider
 
                      />

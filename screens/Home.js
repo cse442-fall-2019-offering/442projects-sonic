@@ -59,7 +59,6 @@ class Home extends Component {
             <View style ={{flex:1,marginTop:30,alignItems:'center'}}>
 
               <Progress.Bar  size={30} progress={calorieProgress} height={30} width={300} color = 'white'/>
-              <Text style={{color:'white',marginTop:15,fontFamily:'Roboto-Bold',fontSize:20}}> 1500 Calories left</Text> 
             
             </View>  
 

@@ -22,6 +22,7 @@ class NutritionFacts extends React.Component  {
     this.state = {
         isLoading: true,
         itemInfo: this.props.navigation.state.params.itemInformation,  
+        idType: this.props.navigation.state.params.idType,  
         servings: ' ' 
     };
 
@@ -38,11 +39,11 @@ arrayHolder: this.array
   componentDidMount(){
 
      return fetch(
-        'https://trackapi.nutritionix.com/v2/search/item?nix_item_id=' + `${this.state.itemInfo}`,
+        'https://trackapi.nutritionix.com/v2/search/item?'+`${this.state.idType}`+'=' + `${this.state.itemInfo}`,
         {
                 headers:{
-                  'x-app-id' : '0eaa9d35',
-                  'x-app-key': '1f817bc9e71ffe3bd9a3db706d8ff92a'
+                  'x-app-id' : '48a4fb4d',
+                  'x-app-key': 'ab1a023c1f9211523c711e0bbdd17599'
                 }
         })
        .then((response) => response.json())
@@ -66,6 +67,12 @@ arrayHolder: this.array
     if(this.state.servings == '0' || this.state.servings == '.' || this.state.servings == ',' || this.state.servings == '-' || this.state.servings == ' ' ){
 
         Alert.alert("Enter Valid # of Servings")
+
+    }
+
+    if(typeof(this.props.navigation.state.params.returnData) == 'undefined'){
+
+      this.props.navigation.navigate('Home', {calories: `${item.nf_calories}` * this.state.servings, protein:`${item.nf_protein}` * this.state.servings, fat:`${item.nf_total_fat}` * this.state.servings, carbs:`${item.nf_total_carbohydrate}` * this.state.servings});
 
     }
 
